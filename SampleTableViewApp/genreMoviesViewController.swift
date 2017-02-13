@@ -13,6 +13,8 @@ class genreMoviesViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var genreMoviesTableView: UITableView!
     let loadMoreActivityIndicator = UIActivityIndicatorView()
     
+    let queue1 = DispatchQueue(label: "load_more")
+    
     var genreId: Int = -1
     var genreName: String = ""
     
@@ -37,7 +39,7 @@ class genreMoviesViewController: UIViewController, UITableViewDataSource, UITabl
     
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
-    {        
+    {
 //        if indexPath.row == self.names.count {
 //            let cell = tableView.dequeueReusableCell(withIdentifier: "loadMoreCell", for: indexPath)
 //            cell.preservesSuperviewLayoutMargins = false
@@ -69,13 +71,9 @@ class genreMoviesViewController: UIViewController, UITableViewDataSource, UITabl
         self.loadMoreActivityIndicator.isHidden = false
         self.loadMoreActivityIndicator.startAnimating()
         if currentPage <= totalPages {
-            getMoviesByGenre(page: currentPage, flag: 1)
-//            self.loadMoreActivityIndicator.stopAnimating()
-//            DispatchQueue.global().async {
-//                self.genreMoviesTableView.reloadData()
-//                self.loadMoreActivityIndicator.isHidden = true
-//                self.loadMoreActivityIndicator.stopAnimating()
-//            }
+            queue1.async {
+                self.getMoviesByGenre(page: self.currentPage, flag: 1)
+            }
         }
     }
     
@@ -88,6 +86,8 @@ class genreMoviesViewController: UIViewController, UITableViewDataSource, UITabl
         }
         
         self.genreMoviesTableView.insertRows(at: indexPath as [IndexPath], with: UITableViewRowAnimation.none)
+        self.genreMoviesTableView.reloadData()
+        self.loadMoreActivityIndicator.stopAnimating()
         self.genreMoviesTableView.scrollToRow(at: indexPath.first! as IndexPath, at: UITableViewScrollPosition.bottom, animated: true)
     }
     
@@ -126,7 +126,6 @@ class genreMoviesViewController: UIViewController, UITableViewDataSource, UITabl
             if(flag == 1) {
 //                self.genreMoviesTableView.reloadData()
                 scrollToNewRow()
-                self.loadMoreActivityIndicator.stopAnimating()
             }
             currentPage += 1
             print("current page after incrementing: ", currentPage)

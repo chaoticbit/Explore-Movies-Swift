@@ -13,6 +13,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var myTableView: UITableView!
     let loadMoreActivityIndicator = UIActivityIndicatorView()
     
+    @IBOutlet weak var refreshActivityIndicator: UIActivityIndicatorView!
+    
+    let loadMoreView = UIView()
+    
+    let queue = DispatchQueue(label: "refresh_data")
+    let queue1 = DispatchQueue(label: "load_more")
+    
     var names: [String] = []
         
     var overview: [String] = []
@@ -78,15 +85,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 //        let y = CGFloat(offset.y + bounds.size.height - inset.bottom)
 //        let h = CGFloat(size.height)
 //        
-//        let reload_distance = CGFloat(50)
-//        if(y > (h + reload_distance)) {
-//            
-//            if currentPage <= totalPages {
-//                getUpcomingMovies(page: currentPage)
-//                DispatchQueue.main.async {
-//                    self.myTableView.reloadData()
-//                }
-//            }
+//        if(y == h) {
+//            loadMoreView.isHidden = false
+//        }
+//        else {
+//            loadMoreView.isHidden = true
 //        }
 //    }        
     
@@ -95,7 +98,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.loadMoreActivityIndicator.isHidden = false
         self.loadMoreActivityIndicator.startAnimating()
         if currentPage <= totalPages {
-            getUpcomingMovies(page: currentPage, flag: 1)
+            queue1.async {
+                self.getUpcomingMovies(page: self.currentPage, flag: 1)
+            }
         }
     }
     
@@ -108,21 +113,28 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
         self.myTableView.insertRows(at: indexPath as [IndexPath], with: UITableViewRowAnimation.none)
-        self.myTableView.scrollToRow(at: indexPath.first! as IndexPath, at: UITableViewScrollPosition.bottom, animated: true)
+        self.myTableView.reloadData()
         self.loadMoreActivityIndicator.stopAnimating()
+        self.myTableView.scrollToRow(at: indexPath.first! as IndexPath, at: UITableViewScrollPosition.bottom, animated: true)
     }
     
     @IBAction func RefreshData(_ sender: Any) {
-        names.removeAll()
-        overview.removeAll()
-        thumbs.removeAll()
-        movieIDs.removeAll()
-        arrOfThumnails.removeAll()
-        currentPage = 1
+        self.myTableView.isHidden = true
+        self.refreshActivityIndicator.isHidden = false
+        self.refreshActivityIndicator.startAnimating()
+        queue.async {
+            self.names.removeAll()
+            self.overview.removeAll()
+            self.thumbs.removeAll()
+            self.movieIDs.removeAll()
+            self.arrOfThumnails.removeAll()
+            self.currentPage = 1
         
-        getUpcomingMovies(page: currentPage, flag: 0)
-        DispatchQueue.global().async {
+            self.getUpcomingMovies(page: self.currentPage, flag: 0)
             self.myTableView.reloadData()
+            self.refreshActivityIndicator.stopAnimating()
+            self.refreshActivityIndicator.isHidden = true
+            self.myTableView.isHidden = false
         }
     }
     
@@ -157,7 +169,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         
                     }
                     if(flag == 1) {
-                        //                self.genreMoviesTableView.reloadData()
                         scrollToNewRow()
                     }
                 }
@@ -177,7 +188,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let theHeight = view.frame.size.height //grabs the height of your view
         
         //Create a footer UI View
-        let loadMoreView = UIView()
         loadMoreView.backgroundColor = UIColor.white
         loadMoreView.alpha = 1
         loadMoreView.frame = CGRect(x: 0, y: theHeight - 99 , width: self.view.frame.width, height: 50)

@@ -9,7 +9,7 @@
 import UIKit
 
 class searchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,UISearchBarDelegate {
-    
+        
     let queue = DispatchQueue(label: "perform_api_call")
     
     var searchActive : Bool = false
@@ -27,6 +27,7 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.barTintColor = UIColor.lightGray
         // Do any additional setup after loading the view.
     }
     
@@ -74,7 +75,7 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
             self.searchTableView.reloadData()
         }
         else {
-            queue.sync {
+            queue.async {
                 self.names.removeAll()
                 self.overview.removeAll()
                 self.thumbs.removeAll()
@@ -111,9 +112,10 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
                     }
                 }
             }
-            catch {
-                
+            catch { }
             }
+            
+            queue.sync {
                 self.searchTableView.reloadData()
             }
 //            filteredResults = names.filter({ (text) -> Bool in
@@ -159,11 +161,10 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
 //            cell.name.text = self.filteredResults[indexPath.row]
 //        }
 //        else {
-            queue.sync {
-                cell.name.text = self.names[indexPath.row]
-                cell.summary.text = self.overview[indexPath.row]
-                cell.posterImage.image = self.arrOfThumnails[indexPath.row]
-            }
+            cell.name.text = self.names[indexPath.row]
+            cell.summary.text = self.overview[indexPath.row]
+            cell.posterImage.image = self.arrOfThumnails[indexPath.row]
+        
 //        }
         
         return (cell)
