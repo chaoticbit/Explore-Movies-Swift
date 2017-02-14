@@ -76,12 +76,13 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
         }
         else {
             queue.async {
+                let encodedAdress: String = searchText.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
                 self.names.removeAll()
                 self.overview.removeAll()
                 self.thumbs.removeAll()
                 self.movieIDs.removeAll()
                 self.arrOfThumnails.removeAll()
-            let url = URL(string:"https://api.themoviedb.org/3/search/movie?api_key=01082f35da875726ce81a65b79c1d08c&page=1&query=\(searchText)")
+            let url = URL(string:"https://api.themoviedb.org/3/search/movie?api_key=01082f35da875726ce81a65b79c1d08c&page=1&query=\(encodedAdress)")
             do {
                 let allMoviesData = try Data(contentsOf: url!)
                 let allMovies = try JSONSerialization.jsonObject(with: allMoviesData, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String, AnyObject>
@@ -96,17 +97,17 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
                                 self.overview.append(aObject["overview"] as! String)
                                 self.movieIDs.append(aObject["id"] as! Int)
                             
-                                if aObject["poster_path"] is NSNull{
-                                    self.thumbs.append("")
-                                    self.arrOfThumnails.append(UIImage(named: "blank_poster_image.jpg")!)
-                                }
-                                else {
-                                    let posterPath: String = aObject["poster_path"] as! String
-                                    self.thumbs.append(posterPath)
-                                    let url = URL(string: "https://image.tmdb.org/t/p/w185/" + posterPath)
-                                    let data = try? Data(contentsOf: url!)
-                                    self.arrOfThumnails.append(UIImage(data: data!)!)
-                                }
+//                                if aObject["poster_path"] is NSNull{
+//                                    self.thumbs.append("")
+//                                    self.arrOfThumnails.append(UIImage(named: "blank_poster_image.jpg")!)
+//                                }
+//                                else {
+//                                    let posterPath: String = aObject["poster_path"] as! String
+//                                    self.thumbs.append(posterPath)
+//                                    let url = URL(string: "https://image.tmdb.org/t/p/w185/" + posterPath)
+//                                    let data = try? Data(contentsOf: url!)
+//                                    self.arrOfThumnails.append(UIImage(data: data!)!)
+//                                }
                             }
                         }
                     }
@@ -154,8 +155,7 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
         
         cell.preservesSuperviewLayoutMargins = false
         cell.separatorInset = UIEdgeInsets.zero
-        cell.layoutMargins = UIEdgeInsets.zero
-        cell.posterImage.clipsToBounds = true
+        cell.layoutMargins = UIEdgeInsets.zero        
         
 //        if searchActive {
 //            cell.name.text = self.filteredResults[indexPath.row]
@@ -163,7 +163,7 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
 //        else {
             cell.name.text = self.names[indexPath.row]
             cell.summary.text = self.overview[indexPath.row]
-            cell.posterImage.image = self.arrOfThumnails[indexPath.row]
+//            cell.posterImage.image = self.arrOfThumnails[indexPath.row]
         
 //        }
         

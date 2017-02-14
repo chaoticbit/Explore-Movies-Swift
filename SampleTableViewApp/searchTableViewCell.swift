@@ -14,9 +14,7 @@ class searchTableViewCell: UITableViewCell {
     @IBOutlet weak var name: UILabel!
     
     @IBOutlet weak var summary: UILabel!
-    
-    @IBOutlet weak var posterImage: UIImageView!
-    
+        
     
     override func awakeFromNib() {
         super.awakeFromNib()
