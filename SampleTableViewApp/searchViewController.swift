@@ -9,8 +9,8 @@
 import UIKit
 
 class searchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,UISearchBarDelegate {
-        
-    let queue = DispatchQueue(label: "perform_api_call")
+    
+    let queue = DispatchQueue(label: "perform_api_call")        
     
     var searchActive : Bool = false
     
@@ -27,7 +27,7 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.barTintColor = UIColor.lightGray
+        self.navigationController?.navigationBar.barTintColor = UIColor.init(colorLiteralRed: 234/255, green: 233/255, blue: 237/255, alpha: 1.0)
         // Do any additional setup after loading the view.
     }
     
@@ -104,8 +104,7 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
             
             queue.sync {
                 self.searchTableView.reloadData()
-            }
-            
+            }            
         }
         
     }
@@ -131,6 +130,7 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
         cell.summary.text = self.overview[indexPath.row]
         
         return (cell)
+        
     }
 
     override func didReceiveMemoryWarning() {
