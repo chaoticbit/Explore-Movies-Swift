@@ -40,14 +40,6 @@ class genreMoviesViewController: UIViewController, UITableViewDataSource, UITabl
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-//        if indexPath.row == self.names.count {
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "loadMoreCell", for: indexPath)
-//            cell.preservesSuperviewLayoutMargins = false
-//            cell.separatorInset = UIEdgeInsets.zero
-//            cell.layoutMargins = UIEdgeInsets.zero
-//            return cell
-//        }
-//        else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "genreMoviesViewCell", for: indexPath) as! genreMoviesViewCell
                     
             cell.preservesSuperviewLayoutMargins = false
@@ -63,7 +55,6 @@ class genreMoviesViewController: UIViewController, UITableViewDataSource, UITabl
             }
             
             return (cell)
-//        }
     }
     
     func loadMore(_ button: UIButton)
@@ -124,7 +115,6 @@ class genreMoviesViewController: UIViewController, UITableViewDataSource, UITabl
             }
             
             if(flag == 1) {
-//                self.genreMoviesTableView.reloadData()
                 scrollToNewRow()
             }
             currentPage += 1

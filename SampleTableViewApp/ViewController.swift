@@ -42,14 +42,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-//        if indexPath.row == self.names.count {
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "loadMoreCell", for: indexPath)
-//            cell.preservesSuperviewLayoutMargins = false
-//            cell.separatorInset = UIEdgeInsets.zero
-//            cell.layoutMargins = UIEdgeInsets.zero
-//            return cell
-//        }
-//        else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! customTableViewCell
             
             cell.preservesSuperviewLayoutMargins = false
@@ -65,7 +57,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         
             return (cell)
-        //}
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -76,23 +67,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             detailVC?.movieId = movieIDs[row!]
         }
     }
-    
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let offset = scrollView.contentOffset
-//        let bounds = scrollView.bounds
-//        let size = scrollView.contentSize
-//        let inset = scrollView.contentInset
-//        let y = CGFloat(offset.y + bounds.size.height - inset.bottom)
-//        let h = CGFloat(size.height)
-//        
-//        if(y == h) {
-//            loadMoreView.isHidden = false
-//        }
-//        else {
-//            loadMoreView.isHidden = true
-//        }
-//    }        
-    
+        
     func loadMore(_ button: UIButton)
     {
         self.loadMoreActivityIndicator.isHidden = false

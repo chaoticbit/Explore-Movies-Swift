@@ -46,11 +46,7 @@ class genreMoviesDetailViewController: UIViewController {
             
             self.imdbId = movieData["imdb_id"] as! String
             self.movieReleasedLabel.text = "Released on " + (movieData["release_date"] as! String?)!
-            self.movieLanguageLabel.text = "Language - " + (movieData["original_language"] as! String?)!
-            //            let votes: Int = movieData["average_vote"] as! Int
-            //            self.movieVotesLabel.text = "\(votes)"
-            //            self.movieRuntimeLabel.text = (movieData["runtime"] as! String?)! + " mins"
-            //            self.movieOverviewLabel.text = movieData["overview"] as! String?
+            self.movieLanguageLabel.text = "Language - " + (movieData["original_language"] as! String?)!            
             self.movieOverviewTextView.text = movieData["overview"] as! String?
             
             let imageUrl: String = (movieData["backdrop_path"] as! String?)!

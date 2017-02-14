@@ -44,12 +44,10 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-//        searchBar.showsCancelButton = true
         searchActive = true
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-//        searchBar.showsCancelButton = false
         searchActive = false;
     }
     
@@ -96,18 +94,6 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
                                 self.names.append(aObject["title"] as! String)
                                 self.overview.append(aObject["overview"] as! String)
                                 self.movieIDs.append(aObject["id"] as! Int)
-                            
-//                                if aObject["poster_path"] is NSNull{
-//                                    self.thumbs.append("")
-//                                    self.arrOfThumnails.append(UIImage(named: "blank_poster_image.jpg")!)
-//                                }
-//                                else {
-//                                    let posterPath: String = aObject["poster_path"] as! String
-//                                    self.thumbs.append(posterPath)
-//                                    let url = URL(string: "https://image.tmdb.org/t/p/w185/" + posterPath)
-//                                    let data = try? Data(contentsOf: url!)
-//                                    self.arrOfThumnails.append(UIImage(data: data!)!)
-//                                }
                             }
                         }
                     }
@@ -119,16 +105,6 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
             queue.sync {
                 self.searchTableView.reloadData()
             }
-//            filteredResults = names.filter({ (text) -> Bool in
-//                let tmp: String = text
-//                let range = tmp.range(of: searchText, options: String.CompareOptions.caseInsensitive)
-//                return range != nil
-//            })
-//            if(filteredResults.count == 0){
-//                searchActive = false;
-//            } else {
-//                searchActive = true;
-//            }
             
         }
         
@@ -137,12 +113,7 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-//        if searchActive {
-//            return self.filteredResults.count
-//        }
-//        else {
-            return self.names.count
-       // }
+        return self.names.count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -156,16 +127,8 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
         cell.preservesSuperviewLayoutMargins = false
         cell.separatorInset = UIEdgeInsets.zero
         cell.layoutMargins = UIEdgeInsets.zero        
-        
-//        if searchActive {
-//            cell.name.text = self.filteredResults[indexPath.row]
-//        }
-//        else {
-            cell.name.text = self.names[indexPath.row]
-            cell.summary.text = self.overview[indexPath.row]
-//            cell.posterImage.image = self.arrOfThumnails[indexPath.row]
-        
-//        }
+        cell.name.text = self.names[indexPath.row]
+        cell.summary.text = self.overview[indexPath.row]
         
         return (cell)
     }
