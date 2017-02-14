@@ -199,6 +199,7 @@
                                         <connections>
                                             <outlet property="name" destination="s5I-jV-s9H" id="1BO-4T-QVn"/>
                                             <outlet property="summary" destination="WiQ-Ry-1CV" id="bbd-Hv-F3q"/>
+                                            <segue destination="Q25-Mn-CY8" kind="show" identifier="toGenreMoviesDetailView" id="RyB-WW-uJe"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -230,7 +231,7 @@
                     </connections>
                 </searchBar>
             </objects>
-            <point key="canvasLocation" x="1797.5999999999999" y="1611.5442278860571"/>
+            <point key="canvasLocation" x="1796" y="1612"/>
         </scene>
         <!--Genre Movies View Controller-->
         <scene sceneID="t3J-FO-y4K">
@@ -309,7 +310,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Oky-Ls-ZyN"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Kh2-g5-24j">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="666"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zUE-aF-Q5d">
@@ -489,7 +490,7 @@
                         <viewControllerLayoutGuide type="bottom" id="dua-iX-6d6"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Moh-Bc-qaX">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="666"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" fixedFrame="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="80y-6m-FIb">
@@ -598,6 +599,7 @@
         <image name="thumbnails-25.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="RyB-WW-uJe"/>
         <segue reference="SHY-Nt-Dcr"/>
     </inferredMetricsTieBreakers>
 </document>

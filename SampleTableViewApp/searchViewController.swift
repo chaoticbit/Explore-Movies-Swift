@@ -109,6 +109,15 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
         
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toGenreMoviesDetailView" {
+            let row = self.searchTableView.indexPathForSelectedRow?.row
+            let genreMoviesDetailVC = segue.destination as? genreMoviesDetailViewController
+            genreMoviesDetailVC?.passedValue = names[row!]
+            genreMoviesDetailVC?.movieId = movieIDs[row!]
+        }
+    }
+    
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
@@ -116,7 +125,7 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        print("You selected name : " + names[indexPath.row])
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
