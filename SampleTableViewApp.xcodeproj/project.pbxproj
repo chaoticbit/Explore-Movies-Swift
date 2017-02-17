@@ -13,6 +13,8 @@
 		1656FFA91E506887006F2E0B /* genreMoviesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1656FFA81E506887006F2E0B /* genreMoviesViewCell.swift */; };
 		1656FFAB1E5068B5006F2E0B /* genreDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1656FFAA1E5068B5006F2E0B /* genreDetailViewController.swift */; };
 		1656FFAF1E509DD2006F2E0B /* movie_projector-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 1656FFAE1E509DD2006F2E0B /* movie_projector-32.png */; };
+		1658B8971E572BF60069B6B7 /* searchPreferenceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1658B8961E572BF60069B6B7 /* searchPreferenceTableViewCell.swift */; };
+		1658B8991E5733F90069B6B7 /* Ok_25.png in Resources */ = {isa = PBXBuildFile; fileRef = 1658B8981E5733F90069B6B7 /* Ok_25.png */; };
 		169DE89C1E52E5D000729C04 /* tv_show-25.png in Resources */ = {isa = PBXBuildFile; fileRef = 169DE89B1E52E5D000729C04 /* tv_show-25.png */; };
 		169DE89E1E52E93F00729C04 /* tvShowsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DE89D1E52E93F00729C04 /* tvShowsViewController.swift */; };
 		169DE8A01E52EAC100729C04 /* tvShowsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DE89F1E52EAC100729C04 /* tvShowsTableViewCell.swift */; };
@@ -80,6 +82,8 @@
 		1656FFA81E506887006F2E0B /* genreMoviesViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = genreMoviesViewCell.swift; sourceTree = "<group>"; };
 		1656FFAA1E5068B5006F2E0B /* genreDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = genreDetailViewController.swift; sourceTree = "<group>"; };
 		1656FFAE1E509DD2006F2E0B /* movie_projector-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "movie_projector-32.png"; path = "../../all_icons_by_Icons8_free/iOS7/PNG/32/Photo_Video/movie_projector-32.png"; sourceTree = "<group>"; };
+		1658B8961E572BF60069B6B7 /* searchPreferenceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = searchPreferenceTableViewCell.swift; sourceTree = "<group>"; };
+		1658B8981E5733F90069B6B7 /* Ok_25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Ok_25.png; path = "../../../Downloads/Ok 25, 50 px/Ok_25.png"; sourceTree = "<group>"; };
 		169DE89B1E52E5D000729C04 /* tv_show-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tv_show-25.png"; path = "../../all_icons_by_Icons8_free/iOS7/PNG/25/Media_Controls/tv_show-25.png"; sourceTree = "<group>"; };
 		169DE89D1E52E93F00729C04 /* tvShowsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tvShowsViewController.swift; sourceTree = "<group>"; };
 		169DE89F1E52EAC100729C04 /* tvShowsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tvShowsTableViewCell.swift; sourceTree = "<group>"; };
@@ -187,6 +191,7 @@
 				169DE89F1E52EAC100729C04 /* tvShowsTableViewCell.swift */,
 				160EC31F1E51E40800DC8B8C /* searchTableViewCell.swift */,
 				160EC31D1E51B43E00DC8B8C /* searchViewController.swift */,
+				1658B8961E572BF60069B6B7 /* searchPreferenceTableViewCell.swift */,
 				160EC31B1E518EA300DC8B8C /* genreMoviesDetailViewController.swift */,
 				1656FFAA1E5068B5006F2E0B /* genreDetailViewController.swift */,
 				16D6E64F1E50B9CE00C11C04 /* genreMoviesViewController.swift */,
@@ -229,6 +234,7 @@
 				1656FFAE1E509DD2006F2E0B /* movie_projector-32.png */,
 				16D6E64D1E50AB5F00C11C04 /* blank_poster_image.jpg */,
 				16C0EDE51E4F83F0000C36D0 /* SanFranciscoDisplay-Black.otf */,
+				1658B8981E5733F90069B6B7 /* Ok_25.png */,
 				16C0EDE61E4F83F0000C36D0 /* SanFranciscoDisplay-Bold.otf */,
 				16C0EDE71E4F83F0000C36D0 /* SanFranciscoDisplay-Heavy.otf */,
 				16C0EDE81E4F83F0000C36D0 /* SanFranciscoDisplay-Light.otf */,
@@ -371,6 +377,7 @@
 				16B9E4A01E4CCBAB00C934E5 /* Assets.xcassets in Resources */,
 				16C0EE0C1E4F83F0000C36D0 /* SanFranciscoText-RegularItalic.otf in Resources */,
 				16C0EDFA1E4F83F0000C36D0 /* SanFranciscoDisplay-Black.otf in Resources */,
+				1658B8991E5733F90069B6B7 /* Ok_25.png in Resources */,
 				16C0EDFE1E4F83F0000C36D0 /* SanFranciscoDisplay-Medium.otf in Resources */,
 				16C0EE031E4F83F0000C36D0 /* SanFranciscoText-Bold.otf in Resources */,
 				16C0EE011E4F83F0000C36D0 /* SanFranciscoDisplay-Thin.otf in Resources */,
@@ -422,6 +429,7 @@
 				169DE89E1E52E93F00729C04 /* tvShowsViewController.swift in Sources */,
 				160EC3201E51E40800DC8B8C /* searchTableViewCell.swift in Sources */,
 				169DE8A01E52EAC100729C04 /* tvShowsTableViewCell.swift in Sources */,
+				1658B8971E572BF60069B6B7 /* searchPreferenceTableViewCell.swift in Sources */,
 				16B9E4991E4CCBAB00C934E5 /* AppDelegate.swift in Sources */,
 				16B9E4C71E4CCE6E00C934E5 /* customTableViewCell.swift in Sources */,
 				1656FFA91E506887006F2E0B /* genreMoviesViewCell.swift in Sources */,

@@ -21,25 +21,36 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
     var movieIDs: [Int] = []
     var arrOfThumnails: [UIImage] = []
     
+    let searchPreferences = ["Movies", "TV-shows", "People"]
+    var selectedSearchPreference: String = ""
+    
+    var selectedIndex: IndexPath = [0, 0]
+    
     @IBOutlet var searchBar: UISearchBar!
     
     @IBOutlet weak var searchTableView: UITableView!
+    
+    @IBOutlet weak var searchPreferencesTableView: UITableView!
+    
+    @IBOutlet weak var searchPrefrencesView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.barTintColor = UIColor.init(colorLiteralRed: 234/255, green: 233/255, blue: 237/255, alpha: 1.0)
         // Do any additional setup after loading the view.
-    }
+    }    
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         searchBar.setShowsCancelButton(true, animated: true)
-        
+        self.searchTableView.isHidden = true
+        self.searchPrefrencesView.isHidden = false
         return true
     }
     
     func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
         searchBar.setShowsCancelButton(false, animated: true)
-        
+        self.searchTableView.isHidden = false
+        self.searchPrefrencesView.isHidden = true
         return true
     }
     
@@ -67,6 +78,9 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
+        self.searchTableView.isHidden = false
+        self.searchPrefrencesView.isHidden = true
+        
         if searchText == "" {
             self.names.removeAll()
             self.filteredResults.removeAll()
@@ -80,7 +94,19 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
                 self.thumbs.removeAll()
                 self.movieIDs.removeAll()
                 self.arrOfThumnails.removeAll()
-            let url = URL(string:"https://api.themoviedb.org/3/search/movie?api_key=01082f35da875726ce81a65b79c1d08c&page=1&query=\(encodedAdress)")
+                
+                var url = URL(string: "")
+                
+                if self.selectedIndex == [0, 0] {
+                    url = URL(string:"https://api.themoviedb.org/3/search/movie?api_key=01082f35da875726ce81a65b79c1d08c&page=1&query=\(encodedAdress)")!
+                }
+                else if self.selectedIndex == [0, 1] {
+                    url = URL(string:"https://api.themoviedb.org/3/search/tv?api_key=01082f35da875726ce81a65b79c1d08c&page=1&query=\(encodedAdress)")!
+                }
+                else if self.selectedIndex == [0, 2] {
+                    url = URL(string:"https://api.themoviedb.org/3/search/person?api_key=01082f35da875726ce81a65b79c1d08c&page=1&query=\(encodedAdress)")!
+                }
+                
             do {
                 let allMoviesData = try Data(contentsOf: url!)
                 let allMovies = try JSONSerialization.jsonObject(with: allMoviesData, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String, AnyObject>
@@ -90,10 +116,27 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
                         for index in 0...arrJSON.count-1 {
                             
                             let aObject = arrJSON[index]
-                            if self.names.contains(aObject["title"] as! String) == false {
-                                self.names.append(aObject["title"] as! String)
-                                self.overview.append(aObject["overview"] as! String)
-                                self.movieIDs.append(aObject["id"] as! Int)
+                            
+                            if self.selectedIndex == [0, 0] {
+                                if self.names.contains(aObject["title"] as! String) == false {
+                                    self.names.append(aObject["title"] as! String)
+                                    self.overview.append(aObject["overview"] as! String)
+                                    self.movieIDs.append(aObject["id"] as! Int)
+                                }
+                            }
+                            else if self.selectedIndex == [0, 1] {
+                                if self.names.contains(aObject["name"] as! String) == false {
+                                    self.names.append(aObject["name"] as! String)
+                                    self.overview.append(aObject["overview"] as! String)
+                                    self.movieIDs.append(aObject["id"] as! Int)
+                                }
+                            }
+                            else if self.selectedIndex == [0, 2] {
+                                if self.names.contains(aObject["name"] as! String) == false {
+                                    self.names.append(aObject["name"] as! String)
+                                    self.overview.append("")
+                                    self.movieIDs.append(aObject["id"] as! Int)
+                                }
                             }
                         }
                     }
@@ -121,25 +164,62 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return self.names.count
+        var count: Int?
+        
+        if tableView == self.searchTableView {
+            count = self.names.count
+        }
+        
+        if tableView == self.searchPreferencesTableView {
+            count = self.searchPreferences.count
+        }
+        
+        return count!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("You selected name : " + names[indexPath.row])
+        
+        if tableView == self.searchTableView {
+            print("You selected name : " + names[indexPath.row])
+        }
+        
+        if tableView == self.searchPreferencesTableView {
+            selectedIndex = indexPath
+            self.searchPreferencesTableView.reloadData()
+            print("selected index : ", selectedIndex)
+        }
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath) as! searchTableViewCell
         
-        cell.preservesSuperviewLayoutMargins = false
-        cell.separatorInset = UIEdgeInsets.zero
-        cell.layoutMargins = UIEdgeInsets.zero        
-        cell.name.text = self.names[indexPath.row]
-        cell.summary.text = self.overview[indexPath.row]
+        if tableView == self.searchTableView {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath) as! searchTableViewCell
+            cell.preservesSuperviewLayoutMargins = false
+            cell.separatorInset = UIEdgeInsets.zero
+            cell.layoutMargins = UIEdgeInsets.zero
+            cell.name.text = self.names[indexPath.row]
+            cell.summary.text = self.overview[indexPath.row]
+            
+            return (cell)
+        }
         
-        return (cell)
+        else if tableView == self.searchPreferencesTableView {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "searchPreferenceCell", for: indexPath) as! searchPreferenceTableViewCell
+            cell.selectionStyle = UITableViewCellSelectionStyle.none
+            cell.searchPreferenceLabel.text = self.searchPreferences[indexPath.row]
+            
+            if selectedIndex == indexPath {
+                cell.preferenceSelectedImageView.isHidden = false
+            }
+            else {
+                cell.preferenceSelectedImageView.isHidden = true
+            }
+            
+            return (cell)
+        }
         
+        else { preconditionFailure ("unexpected cell type") }
     }
 
     override func didReceiveMemoryWarning() {

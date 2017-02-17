@@ -17,7 +17,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     let loadMoreView = UIView()
     
-    let queue = DispatchQueue(label: "refresh_data")
+    let queue = DispatchQueue(label: "refresh_data", qos: .userInitiated)
     let queue1 = DispatchQueue(label: "load_more")
     
     var names: [String] = []
@@ -97,19 +97,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.myTableView.isHidden = true
         self.refreshActivityIndicator.isHidden = false
         self.refreshActivityIndicator.startAnimating()
+        
+        self.names.removeAll()
+        self.overview.removeAll()
+        self.thumbs.removeAll()
+        self.movieIDs.removeAll()
+        self.arrOfThumnails.removeAll()
+        self.currentPage = 1
+        
         queue.async {
-            self.names.removeAll()
-            self.overview.removeAll()
-            self.thumbs.removeAll()
-            self.movieIDs.removeAll()
-            self.arrOfThumnails.removeAll()
-            self.currentPage = 1
         
             self.getUpcomingMovies(page: self.currentPage, flag: 0)
-            self.myTableView.reloadData()
-            self.refreshActivityIndicator.stopAnimating()
-            self.refreshActivityIndicator.isHidden = true
-            self.myTableView.isHidden = false
+            
+            if self.names.count > 0 {
+                self.myTableView.reloadData()
+                self.refreshActivityIndicator.stopAnimating()
+                self.refreshActivityIndicator.isHidden = true
+                self.myTableView.isHidden = false
+            }
         }
     }
     
