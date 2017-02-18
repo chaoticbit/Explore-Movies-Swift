@@ -13,6 +13,8 @@ class genreMoviesViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var genreMoviesTableView: UITableView!
     let loadMoreActivityIndicator = UIActivityIndicatorView()
     
+    let loader = UIActivityIndicatorView()
+    
     let queue1 = DispatchQueue(label: "load_more")
     
     var genreId: Int = -1
@@ -140,6 +142,16 @@ class genreMoviesViewController: UIViewController, UITableViewDataSource, UITabl
         
         let theHeight = view.frame.size.height //grabs the height of your view
         
+        self.loader.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        self.loader.isHidden = false
+        self.loader.hidesWhenStopped = true
+        self.loader.backgroundColor = UIColor.white
+        self.loader.color = UIColor.gray
+        self.view.addSubview(loader)
+        self.view.bringSubview(toFront: loader)
+        self.loader.startAnimating()
+
+        
         //Create a footer UI View
         let loadMoreView = UIView()
         loadMoreView.backgroundColor = UIColor.white
@@ -167,7 +179,14 @@ class genreMoviesViewController: UIViewController, UITableViewDataSource, UITabl
         loadMoreView.addSubview(loadMoreActivityIndicator)
         
         //API call
-        getMoviesByGenre(page: currentPage, flag: 0)
+        DispatchQueue.main.async {
+            self.getMoviesByGenre(page: self.currentPage, flag: 0)
+            
+            if self.names.count > 0 {
+                self.loader.stopAnimating()
+                self.genreMoviesTableView.reloadData()
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
