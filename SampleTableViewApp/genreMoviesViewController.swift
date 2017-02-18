@@ -128,9 +128,9 @@ class genreMoviesViewController: UIViewController, UITableViewDataSource, UITabl
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toGenreMoviesDetailView" {
             let row = self.genreMoviesTableView.indexPathForSelectedRow?.row
-            let genreMoviesDetailVC = segue.destination as? genreMoviesDetailViewController
-            genreMoviesDetailVC?.passedValue = names[row!]
-            genreMoviesDetailVC?.movieId = movieIDs[row!]
+            let detailVC = segue.destination as? detailViewController
+            detailVC?.passedValue = names[row!]
+            detailVC?.movieId = movieIDs[row!]
         }
     }
     
