@@ -154,6 +154,7 @@ class genreMoviesViewController: UIViewController, UITableViewDataSource, UITabl
         
         //Create a footer UI View
         let loadMoreView = UIView()
+        loadMoreView.isHidden = true
         loadMoreView.backgroundColor = UIColor.white
         loadMoreView.alpha = 1
         loadMoreView.frame = CGRect(x: 0, y: theHeight - 99 , width: self.view.frame.width, height: 50)
@@ -185,6 +186,7 @@ class genreMoviesViewController: UIViewController, UITableViewDataSource, UITabl
             if self.names.count > 0 {
                 self.loader.stopAnimating()
                 self.genreMoviesTableView.reloadData()
+                loadMoreView.isHidden = false
             }
         }
     }
