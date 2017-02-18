@@ -41,7 +41,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="118"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LO1-hh-yIj" id="IHO-W6-wjT">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="117"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="117.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r4g-4B-3XU">
@@ -121,7 +121,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="49"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mib-vr-jkf" id="BKL-Oj-P1u">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="48"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="48.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zdm-MT-l7b">
@@ -177,7 +177,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="98"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mIJ-CW-lMp" id="hBZ-Kt-v7V">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="97"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="98"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s5I-jV-s9H">
@@ -221,7 +221,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="375" height="49"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3La-1o-9we" id="N2Q-ij-GTa">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S0x-DC-wVB">
@@ -300,7 +300,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="119"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Nm-6d-niD" id="zYa-GU-fzY">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="118"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="119"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bvO-JT-xRE">
@@ -564,7 +564,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="664"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="fLO-g8-clR">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fLO-g8-clR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -607,7 +607,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="666"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="PIv-lV-PUv">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="PIv-lV-PUv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -627,7 +627,7 @@
                     <tabBarItem key="tabBarItem" systemItem="search" id="P2B-Y0-QIN"/>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="f4M-dH-7ug">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="f4M-dH-7ug">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -732,7 +732,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="h7F-Ap-TgP" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="TV shows" image="tv_show-25.png" selectedImage="tv_show-25.png" id="BFt-SP-hVa"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="E0g-9z-mRf">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="E0g-9z-mRf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
