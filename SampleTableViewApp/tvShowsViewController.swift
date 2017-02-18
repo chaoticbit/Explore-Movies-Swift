@@ -174,9 +174,10 @@ class tvShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         
         group.notify(queue: DispatchQueue.main) {
             if self.popularTvShows.count > 0 && self.topRatedTVShows.count > 0 {
-                self.tvShowsTableView.reloadData()
                 self.loader.stopAnimating()
                 self.tvShowTypeSegmentedControl.isEnabled = true
+                self.tvShowTypeSegmentedControl.selectedSegmentIndex = 0
+                self.tvShowsTableView.reloadData()
             }
         }
         
