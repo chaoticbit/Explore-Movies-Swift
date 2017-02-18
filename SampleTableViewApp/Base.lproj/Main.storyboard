@@ -84,13 +84,7 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Movies" id="nmD-3b-U94">
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="NSL-iz-uF8">
-                            <connections>
-                                <action selector="RefreshData:" destination="BYZ-38-t0r" id="fIr-eR-g9e"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Movies" id="nmD-3b-U94"/>
                     <connections>
                         <outlet property="myTableView" destination="Ipd-GZ-Eoy" id="A7M-UY-AxK"/>
                         <outlet property="refreshActivityIndicator" destination="gIf-tC-CLF" id="zm5-NZ-Uyw"/>
@@ -447,7 +441,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Wau-Ml-lFq"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="hWN-Rg-MC7">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="666"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="664"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tKH-k6-y0j">
@@ -536,7 +530,7 @@
                         <viewControllerLayoutGuide type="bottom" id="dua-iX-6d6"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Moh-Bc-qaX">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="664"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" fixedFrame="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="80y-6m-FIb">
@@ -753,7 +747,7 @@
         <image name="tv_show-25.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="scS-Bx-YWc"/>
-        <segue reference="SHY-Nt-Dcr"/>
+        <segue reference="ohJ-nA-iyJ"/>
+        <segue reference="7yC-rS-4ff"/>
     </inferredMetricsTieBreakers>
 </document>

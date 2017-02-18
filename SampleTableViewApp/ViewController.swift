@@ -13,7 +13,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var myTableView: UITableView!
     let loadMoreActivityIndicator = UIActivityIndicatorView()
     let loader = UIActivityIndicatorView()
-    
+    let refreshControl = UIRefreshControl()
     @IBOutlet weak var refreshActivityIndicator: UIActivityIndicatorView!
     
     let loadMoreView = UIView()
@@ -70,7 +70,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
         
     func loadMore(_ button: UIButton)
-    {
+    {        
         self.loadMoreActivityIndicator.isHidden = false
         self.loadMoreActivityIndicator.startAnimating()
         if currentPage <= totalPages {
@@ -93,32 +93,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.loadMoreActivityIndicator.stopAnimating()
         self.myTableView.scrollToRow(at: indexPath.first! as IndexPath, at: UITableViewScrollPosition.bottom, animated: true)
     }
-    
-    @IBAction func RefreshData(_ sender: Any) {
-        self.myTableView.isHidden = true
-        self.refreshActivityIndicator.isHidden = false
-        self.refreshActivityIndicator.startAnimating()
-        
-        self.names.removeAll()
-        self.overview.removeAll()
-        self.thumbs.removeAll()
-        self.movieIDs.removeAll()
-        self.arrOfThumnails.removeAll()
-        self.currentPage = 1
-        
-        queue.async {
-        
-            self.getUpcomingMovies(page: self.currentPage, flag: 0)
-            
-            if self.names.count > 0 {
-                self.myTableView.reloadData()
-                self.refreshActivityIndicator.stopAnimating()
-                self.refreshActivityIndicator.isHidden = true
-                self.myTableView.isHidden = false
-            }
-        }
-    }
-    
     
     func getUpcomingMovies(page: Int, flag: Int) {
         let url = URL(string:"https://api.themoviedb.org/3/movie/upcoming?api_key=01082f35da875726ce81a65b79c1d08c&page=\(page)")
@@ -163,11 +137,29 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
+    func pullToRefreshData()
+    {
+        self.names.removeAll()
+        self.overview.removeAll()
+        self.thumbs.removeAll()
+        self.movieIDs.removeAll()
+        self.arrOfThumnails.removeAll()
+        self.currentPage = 1
+        queue.async {
+            self.getUpcomingMovies(page: self.currentPage, flag: 0)
+            
+            if self.names.count > 0 {
+                self.myTableView.reloadData()
+                self.refreshControl.endRefreshing()
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let theHeight = view.frame.size.height //grabs the height of your view
-        
+        self.myTableView.refreshControl = refreshControl
         self.loader.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         self.loader.isHidden = false
         self.loader.hidesWhenStopped = true
@@ -176,9 +168,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.view.addSubview(loader)
         self.view.bringSubview(toFront: loader)
         self.loader.startAnimating()
-
+        
+        refreshControl.addTarget(self, action: #selector(ViewController.pullToRefreshData), for: UIControlEvents.valueChanged)
         
         //Create a footer UI View
+        loadMoreView.isHidden = true
         loadMoreView.backgroundColor = UIColor.white
         loadMoreView.alpha = 1
         loadMoreView.frame = CGRect(x: 0, y: theHeight - 99 , width: self.view.frame.width, height: 50)
@@ -209,6 +203,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             if self.names.count > 0 {
                 self.loader.stopAnimating()
                 self.myTableView.reloadData()
+                self.loadMoreView.isHidden = false
             }
         }
     }
