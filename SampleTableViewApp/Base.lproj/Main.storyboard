@@ -193,7 +193,6 @@
                                         <connections>
                                             <outlet property="name" destination="s5I-jV-s9H" id="1BO-4T-QVn"/>
                                             <outlet property="summary" destination="WiQ-Ry-1CV" id="bbd-Hv-F3q"/>
-                                            <segue destination="Q25-Mn-CY8" kind="show" identifier="toGenreMoviesDetailView" id="RyB-WW-uJe"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -344,7 +343,7 @@
         <!--Genre Movies Detail View Controller-->
         <scene sceneID="ahP-0s-8n0">
             <objects>
-                <viewController id="Q25-Mn-CY8" customClass="genreMoviesDetailViewController" customModule="SampleTableViewApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GenreMoviesDetailVC" id="Q25-Mn-CY8" customClass="genreMoviesDetailViewController" customModule="SampleTableViewApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fYC-ez-jW6"/>
                         <viewControllerLayoutGuide type="bottom" id="Oky-Ls-ZyN"/>
@@ -530,7 +529,7 @@
                         <viewControllerLayoutGuide type="bottom" id="dua-iX-6d6"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Moh-Bc-qaX">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="664"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" fixedFrame="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="80y-6m-FIb">
@@ -748,6 +747,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ohJ-nA-iyJ"/>
-        <segue reference="7yC-rS-4ff"/>
+        <segue reference="SHY-Nt-Dcr"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -158,6 +158,7 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
             let genreMoviesDetailVC = segue.destination as? genreMoviesDetailViewController
             genreMoviesDetailVC?.passedValue = names[row!]
             genreMoviesDetailVC?.movieId = movieIDs[row!]
+            genreMoviesDetailVC?.type = selectedIndex
         }
     }
     
@@ -181,6 +182,16 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
         
         if tableView == self.searchTableView {
             print("You selected name : " + names[indexPath.row])
+            if self.selectedIndex == [0, 0] {
+                guard let genreMoviesDetailVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "GenreMoviesDetailVC") as? genreMoviesDetailViewController else {
+                    print("Could not instantiate view controller with identifier of type GenreMoviesViewController")
+                    return
+                }
+                genreMoviesDetailVC.passedValue = names[indexPath.row]
+                genreMoviesDetailVC.movieId = movieIDs[indexPath.row]
+                genreMoviesDetailVC.type = selectedIndex
+                self.navigationController?.pushViewController(genreMoviesDetailVC, animated: true)
+            }
         }
         
         if tableView == self.searchPreferencesTableView {
