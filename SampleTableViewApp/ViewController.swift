@@ -145,9 +145,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.movieIDs.removeAll()
         self.arrOfThumnails.removeAll()
         self.currentPage = 1
-        queue.async {
+        
+        let pull2refreshQueue = DispatchQueue(label: "p2r", attributes: .concurrent, target: .main)
+        
+        let group = DispatchGroup()
+        
+        group.enter()
+        
+        pull2refreshQueue.async(group: group){
             self.getUpcomingMovies(page: self.currentPage, flag: 0)
-            
+            group.leave()
+        }
+        
+        group.notify(queue: DispatchQueue.main) {
             if self.names.count > 0 {
                 self.myTableView.reloadData()
                 self.refreshControl.endRefreshing()
