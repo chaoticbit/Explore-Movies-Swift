@@ -196,6 +196,19 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
         
         if tableView == self.searchPreferencesTableView {
             selectedIndex = indexPath
+            switch selectedIndex {
+            case [0, 0]:
+                self.searchBar.placeholder = "Search Movies"
+                break
+            case [0, 1]:
+                self.searchBar.placeholder = "Search TV shows"
+                break
+            case [0, 2]:
+                self.searchBar.placeholder = "Search People"
+                break
+            default:
+                break
+            }
             self.searchPreferencesTableView.reloadData()
             print("selected index : ", selectedIndex)
         }
