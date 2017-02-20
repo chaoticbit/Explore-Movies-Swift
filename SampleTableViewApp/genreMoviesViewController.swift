@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class genreMoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -14,16 +15,11 @@ class genreMoviesViewController: UIViewController, UITableViewDataSource, UITabl
     let loadMoreActivityIndicator = UIActivityIndicatorView()
     
     let loader = UIActivityIndicatorView()
-    
-    let queue1 = DispatchQueue(label: "load_more")
+    let loadMoreView = UIView()
     
     var genreId: Int = -1
     var genreName: String = ""
-    
-    var names: [String] = []
-    var overview: [String] = []
-    var thumbs: [String] = []
-    var movieIDs: [Int] = []
+    var moviesByGenre = [[String: String]]()
     var totalPages: Int = 0
     var arrOfThumnails: [UIImage] = []
     var loadMoreRequestMade: Bool = false
@@ -31,15 +27,14 @@ class genreMoviesViewController: UIViewController, UITableViewDataSource, UITabl
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return (self.names.count)
+        return (self.moviesByGenre.count)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("You selected name : " + names[indexPath.row])
+        let movieByGenre = self.moviesByGenre[indexPath.row]
+        print("You selected name : " + movieByGenre["title"]!)
     }
 
-    
-    
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
             let cell = tableView.dequeueReusableCell(withIdentifier: "genreMoviesViewCell", for: indexPath) as! genreMoviesViewCell
@@ -48,14 +43,15 @@ class genreMoviesViewController: UIViewController, UITableViewDataSource, UITabl
             cell.separatorInset = UIEdgeInsets.zero
             cell.layoutMargins = UIEdgeInsets.zero
             cell.posterImage.clipsToBounds = true
-            
-            cell.name.text = self.names[indexPath.row]
-            cell.summary.text = self.overview[indexPath.row]
-            
+        
+            let movieByGenre = self.moviesByGenre[indexPath.row]
+        
+            cell.name.text = movieByGenre["title"]
+            cell.summary.text = movieByGenre["overview"]
             DispatchQueue.main.async {
                 cell.posterImage.image = self.arrOfThumnails[indexPath.row]
             }
-            
+        
             return (cell)
     }
     
@@ -64,15 +60,13 @@ class genreMoviesViewController: UIViewController, UITableViewDataSource, UITabl
         self.loadMoreActivityIndicator.isHidden = false
         self.loadMoreActivityIndicator.startAnimating()
         if currentPage <= totalPages {
-            queue1.async {
-                self.getMoviesByGenre(page: self.currentPage, flag: 1)
-            }
+            self.getMoviesByGenre(page: self.currentPage, flag: 1)
         }
     }
     
     func scrollToNewRow()
     {
-        let count = self.names.count
+        let count = self.moviesByGenre.count
         var indexPath = [NSIndexPath]()
         for row in count - 20 ..< count {
             indexPath.append(NSIndexPath(row: row, section: 0))
@@ -86,44 +80,41 @@ class genreMoviesViewController: UIViewController, UITableViewDataSource, UITabl
     
     func getMoviesByGenre(page: Int, flag: Int)
     {
-        let url = URL(string:"https://api.themoviedb.org/3/genre/\(genreId)/movies?api_key=01082f35da875726ce81a65b79c1d08c&page=\(page)")
-        do {
-            let allMoviesData = try Data(contentsOf: url!)
-            let allMovies = try JSONSerialization.jsonObject(with: allMoviesData, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String, AnyObject>
+        Alamofire.request("https://api.themoviedb.org/3/genre/\(genreId)/movies?api_key=01082f35da875726ce81a65b79c1d08c&page=\(page)").responseJSON { response in
             
-            totalPages = allMovies["total_pages"] as! Int
-            if let arrJSON = allMovies["results"] as? [[String: AnyObject]] {
-                if arrJSON.isEmpty == false {
-                    for index in 0...arrJSON.count-1 {
-                        
-                        let aObject = arrJSON[index]
-                        names.append(aObject["title"] as! String)
-                        overview.append(aObject["overview"] as! String)
-                        movieIDs.append(aObject["id"] as! Int)
-                        
-                        if aObject["poster_path"] is NSNull{
-                            thumbs.append("")
-                            arrOfThumnails.append(UIImage(named: "blank_poster_image.jpg")!)
+            if let jsonValue = response.result.value {
+                self.totalPages = JSON(jsonValue)["total_pages"].intValue
+                let results = JSON(jsonValue)["results"]
+                if results.count > 0 {
+                    for item in results.arrayValue {
+                        var thumb = ""
+                        let title = item["title"].stringValue
+                        let overview = item["overview"].stringValue
+                        if item["poster_path"].exists() {
+                            thumb = item["poster_path"].stringValue
+                            let url = URL(string: "https://image.tmdb.org/t/p/w185/" + thumb)
+                            let data = try? Data(contentsOf: url!)
+                            self.arrOfThumnails.append(UIImage(data: data!)!)
                         }
                         else {
-                            let posterPath: String = aObject["poster_path"] as! String
-                            thumbs.append(posterPath)
-                            let url = URL(string: "https://image.tmdb.org/t/p/w185/" + posterPath)
-                            let data = try? Data(contentsOf: url!)
-                            arrOfThumnails.append(UIImage(data: data!)!)
+                            self.arrOfThumnails.append(UIImage(named: "blank_poster_image.jpg")!)
                         }
+                        let movieId = item["id"].stringValue
+                        let obj = ["title": title, "overview": overview, "thumb": thumb, "movieId": movieId]
+                        self.moviesByGenre.append(obj)
+                        
                     }
+                    if(flag == 1) {
+                        self.scrollToNewRow()
+                    }
+                    self.currentPage += 1
+                    print("current page after incrementing: ", self.currentPage)
+                    self.loader.stopAnimating()
+                    self.genreMoviesTableView.reloadData()
+                    self.loadMoreView.isHidden = false
+                    return
                 }
             }
-            
-            if(flag == 1) {
-                scrollToNewRow()
-            }
-            currentPage += 1
-            print("current page after incrementing: ", currentPage)
-        }
-        catch {
-            
         }
     }
     
@@ -131,8 +122,9 @@ class genreMoviesViewController: UIViewController, UITableViewDataSource, UITabl
         if segue.identifier == "toGenreMoviesDetailView" {
             let row = self.genreMoviesTableView.indexPathForSelectedRow?.row
             let detailVC = segue.destination as? detailViewController
-            detailVC?.passedValue = names[row!]
-            detailVC?.movieId = movieIDs[row!]
+            let movieByGenre = moviesByGenre[row!]
+            detailVC?.passedValue = movieByGenre["title"]!
+            detailVC?.movieId = JSON(movieByGenre["movieId"]!).intValue
         }
     }
     
@@ -153,7 +145,6 @@ class genreMoviesViewController: UIViewController, UITableViewDataSource, UITabl
 
         
         //Create a footer UI View
-        let loadMoreView = UIView()
         loadMoreView.isHidden = true
         loadMoreView.backgroundColor = UIColor.white
         loadMoreView.alpha = 1
@@ -180,15 +171,7 @@ class genreMoviesViewController: UIViewController, UITableViewDataSource, UITabl
         loadMoreView.addSubview(loadMoreActivityIndicator)
         
         //API call
-        DispatchQueue.main.async {
-            self.getMoviesByGenre(page: self.currentPage, flag: 0)
-            
-            if self.names.count > 0 {
-                self.loader.stopAnimating()
-                self.genreMoviesTableView.reloadData()
-                loadMoreView.isHidden = false
-            }
-        }
+        self.getMoviesByGenre(page: self.currentPage, flag: 0)        
     }
 
     override func didReceiveMemoryWarning() {
