@@ -7,38 +7,32 @@
 //
 
 import UIKit
+import Alamofire
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var myTableView: UITableView!
     let loadMoreActivityIndicator = UIActivityIndicatorView()
     let loader = UIActivityIndicatorView()
-    let refreshControl = UIRefreshControl()
-    @IBOutlet weak var refreshActivityIndicator: UIActivityIndicatorView!
+    let refreshControl = UIRefreshControl()    
     
     let loadMoreView = UIView()
     
-    let queue = DispatchQueue(label: "refresh_data", qos: .userInitiated)
     let queue1 = DispatchQueue(label: "load_more")
     
-    var names: [String] = []
-        
-    var overview: [String] = []
-    var thumbs: [String] = []
-    var movieIDs: [Int] = []
+    var upcomingMovies = [[String: String]]()
     var totalPages: Int = 0
-    
     var arrOfThumnails: [UIImage] = []
-    var loadMoreRequestMade: Bool = false
     var currentPage:Int = 1
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return (self.names.count)
+        return upcomingMovies.count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("You selected name : " + names[indexPath.row])
+        let upcomingMovie = upcomingMovies[indexPath.row]
+        print("You selected name : " + upcomingMovie["title"]!)
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
@@ -50,22 +44,25 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             cell.layoutMargins = UIEdgeInsets.zero
             cell.posterImage.clipsToBounds = true
         
-            cell.name.text = self.names[indexPath.row]
-            cell.nationality.text = self.overview[indexPath.row]
+            let upcomingMovie = upcomingMovies[indexPath.row]
+        
+            cell.name?.text = upcomingMovie["title"]
+            cell.nationality?.text = upcomingMovie["overview"]
         
             DispatchQueue.main.async {
-                cell.posterImage.image = self.arrOfThumnails[indexPath.row]
+                cell.posterImage?.image = self.arrOfThumnails[indexPath.row]
             }
         
-            return (cell)
+            return cell
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toDetailView" {
             let row = self.myTableView.indexPathForSelectedRow?.row
             let detailVC = segue.destination as? detailViewController
-            detailVC?.passedValue = names[row!]
-            detailVC?.movieId = movieIDs[row!]
+            let upcomingMovie = upcomingMovies[row!]
+            detailVC?.passedValue = upcomingMovie["title"]!
+            detailVC?.movieId = JSON(upcomingMovie["movieId"]!).intValue
         }
     }
         
@@ -74,15 +71,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.loadMoreActivityIndicator.isHidden = false
         self.loadMoreActivityIndicator.startAnimating()
         if currentPage <= totalPages {
-            queue1.async {
-                self.getUpcomingMovies(page: self.currentPage, flag: 1)
-            }
+            self.getUpcomingMovies(page: self.currentPage, flag: 1)
         }
     }
     
     func scrollToNewRow()
     {
-        let count = self.names.count
+        let count = self.upcomingMovies.count
         var indexPath = [NSIndexPath]()
         for row in count - 20 ..< count {
             indexPath.append(NSIndexPath(row: row, section: 0))
@@ -94,75 +89,52 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.myTableView.scrollToRow(at: indexPath.first! as IndexPath, at: UITableViewScrollPosition.bottom, animated: true)
     }
     
-    func getUpcomingMovies(page: Int, flag: Int) {
-        let url = URL(string:"https://api.themoviedb.org/3/movie/upcoming?api_key=01082f35da875726ce81a65b79c1d08c&page=\(page)")
-        do {
-            let allMoviesData = try Data(contentsOf: url!)
-            let allMovies = try JSONSerialization.jsonObject(with: allMoviesData, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String, AnyObject>
-
-            totalPages = allMovies["total_pages"] as! Int
-            if let arrJSON = allMovies["results"] as? [[String: AnyObject]] {
-                if arrJSON.isEmpty == false {
-                    for index in 0...arrJSON.count-1 {
-                    
-                        let aObject = arrJSON[index]
-                        names.append(aObject["title"] as! String)
-                        overview.append(aObject["overview"] as! String)
-                        movieIDs.append(aObject["id"] as! Int)
-                                                
-                        if aObject["poster_path"] is NSNull{
-                            thumbs.append("")
-                            arrOfThumnails.append(UIImage(named: "blank_poster_image.jpg")!)
+    func getUpcomingMovies(page: Int, flag: Int) {                
+        
+        Alamofire.request("https://api.themoviedb.org/3/movie/upcoming?api_key=01082f35da875726ce81a65b79c1d08c&page=\(page)").responseJSON { response in
+            
+            if let jsonValue = response.result.value {
+                self.totalPages = JSON(jsonValue)["total_pages"].intValue
+                let results = JSON(jsonValue)["results"]
+                if results.count > 0 {
+                    for item in results.arrayValue {
+                        var thumb = ""
+                        let title = item["title"].stringValue
+                        let overview = item["overview"].stringValue
+                        if item["poster_path"].exists() {
+                            thumb = item["poster_path"].stringValue
+                            let url = URL(string: "https://image.tmdb.org/t/p/w185/" + thumb)
+                            let data = try? Data(contentsOf: url!)
+                            self.arrOfThumnails.append(UIImage(data: data!)!)
                         }
                         else {
-                            let posterPath: String = aObject["poster_path"] as! String
-                            thumbs.append(posterPath)
-                            let url = URL(string: "https://image.tmdb.org/t/p/w185/" + posterPath)
-                            let data = try? Data(contentsOf: url!)
-                            arrOfThumnails.append(UIImage(data: data!)!)
+                            self.arrOfThumnails.append(UIImage(named: "blank_poster_image.jpg")!)
                         }
-                        
+                        let movieId = item["id"].stringValue
+                        let obj = ["title": title, "overview": overview, "thumb": thumb, "movieId": movieId]
+                        self.upcomingMovies.append(obj)
+
                     }
                     if(flag == 1) {
-                        scrollToNewRow()
+                        self.scrollToNewRow()
                     }
+                    self.currentPage += 1
+                    print("current page after incrementing: ", self.currentPage)
+                    self.loader.stopAnimating()
+                    self.myTableView.reloadData()
+                    self.loadMoreView.isHidden = false
+                    return
                 }
             }
-            
-            currentPage += 1
-            print("current page after incrementing: ", currentPage)
-        }
-        catch {
-            
         }
     }
     
     func pullToRefreshData()
     {
-        self.names.removeAll()
-        self.overview.removeAll()
-        self.thumbs.removeAll()
-        self.movieIDs.removeAll()
-        self.arrOfThumnails.removeAll()
+        self.upcomingMovies.removeAll()
         self.currentPage = 1
-        
-        let pull2refreshQueue = DispatchQueue(label: "p2r", attributes: .concurrent, target: .main)
-        
-        let group = DispatchGroup()
-        
-        group.enter()
-        
-        pull2refreshQueue.async(group: group){
-            self.getUpcomingMovies(page: self.currentPage, flag: 0)
-            group.leave()
-        }
-        
-        group.notify(queue: DispatchQueue.main) {
-            if self.names.count > 0 {
-                self.myTableView.reloadData()
-                self.refreshControl.endRefreshing()
-            }
-        }
+        self.getUpcomingMovies(page: self.currentPage, flag: 0)
+        self.refreshControl.endRefreshing()
     }
     
     override func viewDidLoad() {
@@ -206,16 +178,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.view.addSubview(loadMoreView)
         loadMoreView.addSubview(loadMoreBtn)
         loadMoreView.addSubview(loadMoreActivityIndicator)
-        
-        DispatchQueue.main.async {
-            self.getUpcomingMovies(page: self.currentPage, flag: 0)
-            
-            if self.names.count > 0 {
-                self.loader.stopAnimating()
-                self.myTableView.reloadData()
-                self.loadMoreView.isHidden = false
-            }
-        }
+        self.getUpcomingMovies(page: self.currentPage, flag: 0)
     }
 
     override func didReceiveMemoryWarning() {
