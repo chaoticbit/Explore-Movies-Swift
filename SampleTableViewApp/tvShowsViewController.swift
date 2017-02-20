@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class tvShowsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -82,22 +83,32 @@ class tvShowsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func getPopularTvShows()
     {
-        let urlString = "https://api.themoviedb.org/3/tv/popular?api_key=01082f35da875726ce81a65b79c1d08c&language=en-US&page=1"
-            if let url = URL(string: urlString) {
-                if let data = try? Data(contentsOf: url) {
-                    let json = JSON(data: data)
-                    
-                    if json["results"].count > 0 {
-                        parsePopular(json: json)
-                        return
-                    }
+        Alamofire.request("https://api.themoviedb.org/3/tv/popular?api_key=01082f35da875726ce81a65b79c1d08c&language=en-US&page=1").responseJSON { response in
+            
+            if let jsonValue = response.result.value {
+                let results = JSON(jsonValue)["results"]
+                if results.count > 0 {
+                    self.parsePopular(json: results)
                 }
             }
+        }
+        
+//        let urlString = "https://api.themoviedb.org/3/tv/popular?api_key=01082f35da875726ce81a65b79c1d08c&language=en-US&page=1"
+//            if let url = URL(string: urlString) {
+//                if let data = try? Data(contentsOf: url) {
+//                    let json = JSON(data: data)
+//                    
+//                    if json["results"].count > 0 {
+//                        parsePopular(json: json)
+//                        return
+//                    }
+//                }
+//            }
     }
     
     func parsePopular(json: JSON)
     {
-        for item in json["results"].arrayValue {
+        for item in json.arrayValue {
             var thumb = ""
             let name = item["name"].stringValue
             let overview = item["overview"].stringValue
@@ -114,11 +125,12 @@ class tvShowsViewController: UIViewController, UITableViewDataSource, UITableVie
             let obj = ["name": name, "overview": overview, "thumb": thumb, "showId": showId]
             popularTvShows.append(obj)
         }
+        self.getTopRatedTvShows()
     }
     
     func parseTopRated(json: JSON)
     {
-        for item in json["results"].arrayValue {
+        for item in json.arrayValue {
             var thumb = ""
             let name = item["name"].stringValue
             let overview = item["overview"].stringValue
@@ -135,21 +147,36 @@ class tvShowsViewController: UIViewController, UITableViewDataSource, UITableVie
             let obj = ["name": name, "overview": overview, "thumb": thumb, "showId": showId]
             topRatedTVShows.append(obj)
         }
+        self.loader.stopAnimating()
+        self.tvShowTypeSegmentedControl.isEnabled = true
+        self.tvShowTypeSegmentedControl.selectedSegmentIndex = 0
+        self.tvShowsTableView.reloadData()
     }
     
     func getTopRatedTvShows()
     {
-        let urlString = "https://api.themoviedb.org/3/tv/top_rated?api_key=01082f35da875726ce81a65b79c1d08c&language=en-US&page=1"
-        if let url = URL(string: urlString) {
-            if let data = try? Data(contentsOf: url) {
-                let json = JSON(data: data)
-                
-                if json["results"].count > 0 {
-                    parseTopRated(json: json)
-                    return
+        
+        Alamofire.request("https://api.themoviedb.org/3/tv/top_rated?api_key=01082f35da875726ce81a65b79c1d08c&language=en-US&page=1").responseJSON { response in
+            
+            if let jsonValue = response.result.value {
+                let results = JSON(jsonValue)["results"]
+                if results.count > 0 {
+                    self.parseTopRated(json: results)
                 }
             }
         }
+        
+//        let urlString = "https://api.themoviedb.org/3/tv/top_rated?api_key=01082f35da875726ce81a65b79c1d08c&language=en-US&page=1"
+//        if let url = URL(string: urlString) {
+//            if let data = try? Data(contentsOf: url) {
+//                let json = JSON(data: data)
+//                
+//                if json["results"].count > 0 {
+//                    parseTopRated(json: json)
+//                    return
+//                }
+//            }
+//        }
     }
     
     override func viewDidLoad() {
@@ -157,32 +184,31 @@ class tvShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         self.loader.isHidden = false
         self.loader.startAnimating()
         self.tvShowTypeSegmentedControl.isEnabled = false
-        let queue = DispatchQueue(label: "make_api_call", attributes: .concurrent, target: .main)
-        
-        let group = DispatchGroup()
-        group.enter()
-        queue.async(group: group) {
-            self.getPopularTvShows()
-            group.leave()
-        }
-        
-        group.enter()
-        queue.async(group: group) {
-            self.getTopRatedTvShows()
-            group.leave()
-        }
-        
-        group.notify(queue: DispatchQueue.main) {
-            if self.popularTvShows.count > 0 && self.topRatedTVShows.count > 0 {
-                self.loader.stopAnimating()
-                self.tvShowTypeSegmentedControl.isEnabled = true
-                self.tvShowTypeSegmentedControl.selectedSegmentIndex = 0
-                self.tvShowsTableView.reloadData()
-            }
-        }
-        
-//        queue.sync {
+        self.getPopularTvShows()
+//        let queue = DispatchQueue(label: "make_api_call", attributes: .concurrent, target: .main)
+//        
+//        let group = DispatchGroup()
+//        group.enter()
+//        queue.async(group: group) {
+//            self.getPopularTvShows()
+//            group.leave()
 //        }
+//        
+//        group.enter()
+//        queue.async(group: group) {
+//            self.getTopRatedTvShows()
+//            group.leave()
+//        }
+//        
+//        group.notify(queue: DispatchQueue.main) {
+//            if self.popularTvShows.count > 0 && self.topRatedTVShows.count > 0 {
+//                self.loader.stopAnimating()
+//                self.tvShowTypeSegmentedControl.isEnabled = true
+//                self.tvShowTypeSegmentedControl.selectedSegmentIndex = 0
+//                self.tvShowsTableView.reloadData()
+//            }
+//        }
+        
         // Do any additional setup after loading the view.
     }
 
