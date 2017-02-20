@@ -14,7 +14,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var myTableView: UITableView!
     let loadMoreActivityIndicator = UIActivityIndicatorView()
     let loader = UIActivityIndicatorView()
-    let refreshControl = UIRefreshControl()    
+    let refreshControl = UIRefreshControl()
     
     let loadMoreView = UIView()
     

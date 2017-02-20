@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class detailViewController: UIViewController {
     
@@ -45,30 +46,50 @@ class detailViewController: UIViewController {
         
         myScrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 650)
         
-        DispatchQueue.main.async {
-            let url = URL(string:"https://api.themoviedb.org/3/movie/\(self.movieId)?api_key=01082f35da875726ce81a65b79c1d08c")
-            do {
-                let moviesData = try Data(contentsOf: url!)
-                let movieData = try JSONSerialization.jsonObject(with: moviesData, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String, AnyObject>
+        Alamofire.request("https://api.themoviedb.org/3/movie/\(self.movieId)?api_key=01082f35da875726ce81a65b79c1d08c").responseJSON { response in
+            
+            if let jsonValue = response.result.value {
+                let results = JSON(jsonValue)
+                self.imdbId = results["imdb_id"].stringValue
+                self.movieReleasedLabel.text = "Released on " + results["release_date"].stringValue
+                self.movieLanguageLabel.text = "Language - " + results["original_language"].stringValue
+                self.movieVotesLabel.text = "Vote average - " + results["average_vote"].stringValue
+                self.movieRuntimeLabel.text = "Runtime - " + results["runtime"].stringValue
+                self.movieOverviewTextView.text = results["overview"].stringValue
                 
-                self.imdbId = movieData["imdb_id"] as! String
-                self.movieReleasedLabel.text = "Released on " + (movieData["release_date"] as! String?)!
-                self.movieLanguageLabel.text = "Language - " + (movieData["original_language"] as! String?)!
-                self.movieOverviewTextView.text = movieData["overview"] as! String?
-                
-                let imageUrl: String = (movieData["backdrop_path"] as! String?)!
-                
+                let imageUrl: String = results["backdrop_path"].stringValue
                 let url = URL(string: "https://image.tmdb.org/t/p/w500/" + imageUrl)
                 let data = try? Data(contentsOf: url!)
                 self.backdropImage.image = UIImage(data: data!)
-                if movieData.count > 0 {
-                    self.loader.stopAnimating()
-                }
-            }
-            catch {
                 
+                self.loader.stopAnimating()
             }
         }
+        
+//        DispatchQueue.main.async {
+//            let url = URL(string:"https://api.themoviedb.org/3/movie/\(self.movieId)?api_key=01082f35da875726ce81a65b79c1d08c")
+//            do {
+//                let moviesData = try Data(contentsOf: url!)
+//                let movieData = try JSONSerialization.jsonObject(with: moviesData, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String, AnyObject>
+//                
+//                self.imdbId = movieData["imdb_id"] as! String
+//                self.movieReleasedLabel.text = "Released on " + (movieData["release_date"] as! String?)!
+//                self.movieLanguageLabel.text = "Language - " + (movieData["original_language"] as! String?)!
+//                self.movieOverviewTextView.text = movieData["overview"] as! String?
+//                
+//                let imageUrl: String = (movieData["backdrop_path"] as! String?)!
+//                
+//                let url = URL(string: "https://image.tmdb.org/t/p/w500/" + imageUrl)
+//                let data = try? Data(contentsOf: url!)
+//                self.backdropImage.image = UIImage(data: data!)
+//                if movieData.count > 0 {
+//                    self.loader.stopAnimating()
+//                }
+//            }
+//            catch {
+//                
+//            }
+//        }
         
     }
     
