@@ -7,22 +7,19 @@
 //
 
 import UIKit
+import Alamofire
 
 class searchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,UISearchBarDelegate {
     
     let queue = DispatchQueue(label: "perform_api_call")        
+    let loader = UIActivityIndicatorView()
     
     var searchActive : Bool = false
-    
-    var filteredResults = [String]()
-    var names: [String] = []
-    var overview: [String] = []
-    var thumbs: [String] = []
-    var movieIDs: [Int] = []
     var arrOfThumnails: [UIImage] = []
-    
     let searchPreferences = ["Movies", "TV-shows", "People"]
     var selectedSearchPreference: String = ""
+    
+    var searchResults = [[String: String]]()
     
     var selectedIndex: IndexPath = [0, 0]
     
@@ -37,6 +34,14 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.barTintColor = UIColor.init(colorLiteralRed: 234/255, green: 233/255, blue: 237/255, alpha: 1.0)
+        self.loader.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        self.loader.isHidden = false
+        self.loader.hidesWhenStopped = true
+        self.loader.backgroundColor = UIColor.white
+        self.loader.color = UIColor.gray
+        self.view.addSubview(loader)
+        self.view.bringSubview(toFront: loader)
+        
         // Do any additional setup after loading the view.
     }    
     
@@ -51,6 +56,7 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
         searchBar.setShowsCancelButton(false, animated: true)
         self.searchTableView.isHidden = false
         self.searchPrefrencesView.isHidden = true
+        self.loader.stopAnimating()
         return true
     }
     
@@ -67,8 +73,7 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
         searchBar.text = ""
         searchActive = false;
         searchBar.endEditing(true)
-        self.names.removeAll()
-        self.filteredResults.removeAll()
+        self.searchResults.removeAll()
         self.searchTableView.reloadData()
     }
     
@@ -80,87 +85,91 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
         
         self.searchTableView.isHidden = false
         self.searchPrefrencesView.isHidden = true
+        self.loader.startAnimating()
         
         if searchText == "" {
-            self.names.removeAll()
-            self.filteredResults.removeAll()
+            self.searchResults.removeAll()
             self.searchTableView.reloadData()
+            self.loader.stopAnimating()
         }
         else {
-            queue.async {
                 let encodedAdress: String = searchText.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-                self.names.removeAll()
-                self.overview.removeAll()
-                self.thumbs.removeAll()
-                self.movieIDs.removeAll()
-                self.arrOfThumnails.removeAll()
-                
-                var url = URL(string: "")
-                
+                self.searchResults.removeAll()
+            
                 if self.selectedIndex == [0, 0] {
-                    url = URL(string:"https://api.themoviedb.org/3/search/movie?api_key=01082f35da875726ce81a65b79c1d08c&page=1&query=\(encodedAdress)")!
-                }
-                else if self.selectedIndex == [0, 1] {
-                    url = URL(string:"https://api.themoviedb.org/3/search/tv?api_key=01082f35da875726ce81a65b79c1d08c&page=1&query=\(encodedAdress)")!
-                }
-                else if self.selectedIndex == [0, 2] {
-                    url = URL(string:"https://api.themoviedb.org/3/search/person?api_key=01082f35da875726ce81a65b79c1d08c&page=1&query=\(encodedAdress)")!
-                }
-                
-            do {
-                let allMoviesData = try Data(contentsOf: url!)
-                let allMovies = try JSONSerialization.jsonObject(with: allMoviesData, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String, AnyObject>
-                
-                if let arrJSON = allMovies["results"] as? [[String: AnyObject]] {
-                    if arrJSON.isEmpty == false {
-                        for index in 0...arrJSON.count-1 {
-                            
-                            let aObject = arrJSON[index]
-                            
-                            if self.selectedIndex == [0, 0] {
-                                if self.names.contains(aObject["title"] as! String) == false {
-                                    self.names.append(aObject["title"] as! String)
-                                    self.overview.append(aObject["overview"] as! String)
-                                    self.movieIDs.append(aObject["id"] as! Int)
+                    Alamofire.request("https://api.themoviedb.org/3/search/movie?api_key=01082f35da875726ce81a65b79c1d08c&page=1&query=\(encodedAdress)").responseJSON{
+                        response in
+                        
+                        if let jsonValue = response.result.value {
+                            let results = JSON(jsonValue)["results"]
+                            if results.count > 0 {
+                                for item in results.arrayValue {
+                                    let title = item["title"].stringValue
+                                    let overview = item["overview"].stringValue
+                                    let movieId = item["id"].stringValue
+                                    let obj = ["title": title, "overview": overview, "movieId": movieId]
+                                    self.searchResults.append(obj)
                                 }
-                            }
-                            else if self.selectedIndex == [0, 1] {
-                                if self.names.contains(aObject["name"] as! String) == false {
-                                    self.names.append(aObject["name"] as! String)
-                                    self.overview.append(aObject["overview"] as! String)
-                                    self.movieIDs.append(aObject["id"] as! Int)
-                                }
-                            }
-                            else if self.selectedIndex == [0, 2] {
-                                if self.names.contains(aObject["name"] as! String) == false {
-                                    self.names.append(aObject["name"] as! String)
-                                    self.overview.append("")
-                                    self.movieIDs.append(aObject["id"] as! Int)
-                                }
+                                self.loader.stopAnimating()
+                                self.searchTableView.reloadData()
                             }
                         }
                     }
                 }
-            }
-            catch { }
-            }
-            
-            queue.sync {
-                self.searchTableView.reloadData()
-            }            
+                    
+                else if self.selectedIndex == [0, 1] {
+                    Alamofire.request("https://api.themoviedb.org/3/search/tv?api_key=01082f35da875726ce81a65b79c1d08c&page=1&query=\(encodedAdress)").responseJSON{
+                        response in
+                        
+                        if let jsonValue = response.result.value {
+                            let results = JSON(jsonValue)["results"]
+                            if results.count > 0 {
+                                for item in results.arrayValue {
+                                    let title = item["name"].stringValue
+                                    let overview = item["overview"].stringValue
+                                    let movieId = item["id"].stringValue
+                                    let obj = ["title": title, "overview": overview, "movieId": movieId]
+                                    self.searchResults.append(obj)
+                                }
+                                self.loader.stopAnimating()
+                                self.searchTableView.reloadData()
+                            }
+                        }
+                    }
+                }
+                else if self.selectedIndex == [0, 2] {
+                    Alamofire.request("https://api.themoviedb.org/3/search/person?api_key=01082f35da875726ce81a65b79c1d08c&page=1&query=\(encodedAdress)").responseJSON{
+                        response in
+                        
+                        if let jsonValue = response.result.value {
+                            let results = JSON(jsonValue)["results"]
+                            if results.count > 0 {
+                                for item in results.arrayValue {
+                                    let title = item["name"].stringValue
+                                    let overview = item["overview"].stringValue
+                                    let movieId = item["id"].stringValue
+                                    let obj = ["title": title, "overview": overview, "movieId": movieId]
+                                    self.searchResults.append(obj)
+                                }
+                                self.loader.stopAnimating()
+                                self.searchTableView.reloadData()
+                            }
+                        }
+                    }
+                }
         }
         
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toGenreMoviesDetailView" {
-            let row = self.searchTableView.indexPathForSelectedRow?.row
-            let genreMoviesDetailVC = segue.destination as? genreMoviesDetailViewController
-            genreMoviesDetailVC?.passedValue = names[row!]
-            genreMoviesDetailVC?.movieId = movieIDs[row!]
-            genreMoviesDetailVC?.type = selectedIndex
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "toGenreMoviesDetailView" {
+//            let row = self.searchTableView.indexPathForSelectedRow?.row
+//            let genreMoviesDetailVC = segue.destination as? genreMoviesDetailViewController
+//            genreMoviesDetailVC?.passedValue = names[row!]
+//            genreMoviesDetailVC?.movieId = movieIDs[row!]
+//            genreMoviesDetailVC?.type = selectedIndex
+//        }
+//    }
     
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -168,7 +177,7 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
         var count: Int?
         
         if tableView == self.searchTableView {
-            count = self.names.count
+            count = self.searchResults.count
         }
         
         if tableView == self.searchPreferencesTableView {
@@ -181,14 +190,16 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if tableView == self.searchTableView {
-            print("You selected name : " + names[indexPath.row])
+            let searchRow = self.searchResults[indexPath.row]
+            print("You selected name : " + searchRow["title"]!)
             if self.selectedIndex == [0, 0] {
                 guard let genreMoviesDetailVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "GenreMoviesDetailVC") as? genreMoviesDetailViewController else {
                     print("Could not instantiate view controller with identifier of type GenreMoviesViewController")
                     return
                 }
-                genreMoviesDetailVC.passedValue = names[indexPath.row]
-                genreMoviesDetailVC.movieId = movieIDs[indexPath.row]
+                let searchRow = self.searchResults[indexPath.row]
+                genreMoviesDetailVC.passedValue = searchRow["title"]!
+                genreMoviesDetailVC.movieId = JSON(searchRow["movieId"]!).intValue
                 genreMoviesDetailVC.type = selectedIndex
                 self.navigationController?.pushViewController(genreMoviesDetailVC, animated: true)
             }
@@ -222,8 +233,11 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
             cell.preservesSuperviewLayoutMargins = false
             cell.separatorInset = UIEdgeInsets.zero
             cell.layoutMargins = UIEdgeInsets.zero
-            cell.name.text = self.names[indexPath.row]
-            cell.summary.text = self.overview[indexPath.row]
+            
+            let searchRow = self.searchResults[indexPath.row]
+            
+            cell.name.text = searchRow["title"]
+            cell.summary.text = searchRow["overview"]
             
             return (cell)
         }
