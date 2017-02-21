@@ -238,7 +238,7 @@ class tvShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         super.viewDidLoad()
         self.loader.isHidden = false
         self.loader.startAnimating()
-        self.tvShowTypeSegmentedControl.isEnabled = false
+        self.tvShowTypeSegmentedControl.isEnabled = false        
         self.getPopularTvShows(page: self.currentPagePopular, flag: 0)
         self.pull2refresh.addTarget(self, action: #selector(tvShowsViewController.pull2refreshData), for: UIControlEvents.valueChanged)
         self.tvShowsTableView.refreshControl = pull2refresh

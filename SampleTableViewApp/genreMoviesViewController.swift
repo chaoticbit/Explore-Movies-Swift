@@ -153,7 +153,7 @@ class genreMoviesViewController: UIViewController, UITableViewDataSource, UITabl
         //Create a load more UIButton
         let loadMoreBtn = UIButton(frame: CGRect(x: 131, y: 5, width: 100, height: 36))
         loadMoreBtn.setTitle("Load more", for: .normal)
-        loadMoreBtn.setTitleColor(UIColor.init(colorLiteralRed: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0), for: .normal)
+        loadMoreBtn.setTitleColor(UIColor(colorLiteralRed: 74/255.0, green: 72/255.0, blue: 196/255.0, alpha: 1.0), for: .normal)
         loadMoreBtn.titleLabel?.textAlignment = NSTextAlignment.center
         loadMoreBtn.alpha = 1
         loadMoreBtn.isHidden = false
