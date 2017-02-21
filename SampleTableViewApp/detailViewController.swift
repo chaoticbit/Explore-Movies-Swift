@@ -65,32 +65,6 @@ class detailViewController: UIViewController {
                 self.loader.stopAnimating()
             }
         }
-        
-//        DispatchQueue.main.async {
-//            let url = URL(string:"https://api.themoviedb.org/3/movie/\(self.movieId)?api_key=01082f35da875726ce81a65b79c1d08c")
-//            do {
-//                let moviesData = try Data(contentsOf: url!)
-//                let movieData = try JSONSerialization.jsonObject(with: moviesData, options: JSONSerialization.ReadingOptions.mutableContainers) as! Dictionary<String, AnyObject>
-//                
-//                self.imdbId = movieData["imdb_id"] as! String
-//                self.movieReleasedLabel.text = "Released on " + (movieData["release_date"] as! String?)!
-//                self.movieLanguageLabel.text = "Language - " + (movieData["original_language"] as! String?)!
-//                self.movieOverviewTextView.text = movieData["overview"] as! String?
-//                
-//                let imageUrl: String = (movieData["backdrop_path"] as! String?)!
-//                
-//                let url = URL(string: "https://image.tmdb.org/t/p/w500/" + imageUrl)
-//                let data = try? Data(contentsOf: url!)
-//                self.backdropImage.image = UIImage(data: data!)
-//                if movieData.count > 0 {
-//                    self.loader.stopAnimating()
-//                }
-//            }
-//            catch {
-//                
-//            }
-//        }
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -104,15 +78,4 @@ class detailViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }            
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

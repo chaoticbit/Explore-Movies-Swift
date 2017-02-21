@@ -161,17 +161,6 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
         
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "toGenreMoviesDetailView" {
-//            let row = self.searchTableView.indexPathForSelectedRow?.row
-//            let genreMoviesDetailVC = segue.destination as? genreMoviesDetailViewController
-//            genreMoviesDetailVC?.passedValue = names[row!]
-//            genreMoviesDetailVC?.movieId = movieIDs[row!]
-//            genreMoviesDetailVC?.type = selectedIndex
-//        }
-//    }
-    
-    
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         var count: Int?
@@ -264,16 +253,4 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

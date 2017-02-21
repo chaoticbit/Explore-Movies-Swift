@@ -83,7 +83,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             indexPath.append(NSIndexPath(row: row, section: 0))
         }
         
-//        self.myTableView.insertRows(at: indexPath as [IndexPath], with: UITableViewRowAnimation.none)
         self.myTableView.reloadData()
         self.loadMoreActivityIndicator.stopAnimating()
         self.myTableView.scrollToRow(at: indexPath.first! as IndexPath, at: UITableViewScrollPosition.bottom, animated: true)
