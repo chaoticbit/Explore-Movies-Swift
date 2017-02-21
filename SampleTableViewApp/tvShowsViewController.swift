@@ -17,6 +17,8 @@ class tvShowsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBOutlet weak var tvShowsTableView: UITableView!
     
+    var loadMoreIndicator = UIActivityIndicatorView()
+    
     let pull2refresh = UIRefreshControl()
     
     var popularTvShows = [[String: String]]()
@@ -25,6 +27,11 @@ class tvShowsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     var arrOfThumnailsPopular: [UIImage] = []
     var arrOfThumbnailsRated: [UIImage] = []
+    
+    var currentPagePopular: Int = 1
+    var currentPageTopRated: Int = 1
+    var totalPagesPopular: Int = -1
+    var totalPagesTopRated: Int = -1
     
     @IBAction func segmentedValueChanged(_ sender: Any) {
         self.tvShowsTableView.reloadData()
@@ -62,15 +69,14 @@ class tvShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         cell.layoutMargins = UIEdgeInsets.zero
         cell.posterImage.clipsToBounds = true
         
-        let popularTvShow = popularTvShows[indexPath.row]
-        let topRatedTvShow = topRatedTVShows[indexPath.row]
-        
         if tvShowTypeSegmentedControl.selectedSegmentIndex == 0 {
+            let popularTvShow = popularTvShows[indexPath.row]
             cell.name?.text = popularTvShow["name"]
             cell.overview?.text = popularTvShow["overview"]
             cell.posterImage?.image = arrOfThumnailsPopular[indexPath.row]
         }
         else if tvShowTypeSegmentedControl.selectedSegmentIndex == 1 {
+            let topRatedTvShow = topRatedTVShows[indexPath.row]
             cell.name?.text = topRatedTvShow["name"]
             cell.overview?.text = topRatedTvShow["overview"]
             cell.posterImage?.image = arrOfThumbnailsRated[indexPath.row]
@@ -80,32 +86,36 @@ class tvShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         
     }
     
-    func getPopularTvShows()
+    func getPopularTvShows(page: Int, flag: Int)
     {
-        Alamofire.request("https://api.themoviedb.org/3/tv/popular?api_key=01082f35da875726ce81a65b79c1d08c&language=en-US&page=1").responseJSON { response in
+        Alamofire.request("https://api.themoviedb.org/3/tv/popular?api_key=01082f35da875726ce81a65b79c1d08c&language=en-US&page=\(page)").responseJSON { response in
             
             if let jsonValue = response.result.value {
+                self.totalPagesPopular = JSON(jsonValue)["total_pages"].intValue
                 let results = JSON(jsonValue)["results"]
                 if results.count > 0 {
-                    self.parsePopular(json: results)
+                    self.parsePopular(json: results, flag: flag)
                 }
             }
         }
-        
-//        let urlString = "https://api.themoviedb.org/3/tv/popular?api_key=01082f35da875726ce81a65b79c1d08c&language=en-US&page=1"
-//            if let url = URL(string: urlString) {
-//                if let data = try? Data(contentsOf: url) {
-//                    let json = JSON(data: data)
-//                    
-//                    if json["results"].count > 0 {
-//                        parsePopular(json: json)
-//                        return
-//                    }
-//                }
-//            }
     }
     
-    func parsePopular(json: JSON)
+    func getTopRatedTvShows(page: Int, flag: Int)
+    {
+        
+        Alamofire.request("https://api.themoviedb.org/3/tv/top_rated?api_key=01082f35da875726ce81a65b79c1d08c&language=en-US&page=\(page)").responseJSON { response in
+            
+            if let jsonValue = response.result.value {
+                self.totalPagesTopRated = JSON(jsonValue)["total_pages"].intValue
+                let results = JSON(jsonValue)["results"]
+                if results.count > 0 {
+                    self.parseTopRated(json: results, flag: flag)
+                }
+            }
+        }
+    }
+    
+    func parsePopular(json: JSON, flag: Int)
     {
         for item in json.arrayValue {
             var thumb = ""
@@ -124,10 +134,21 @@ class tvShowsViewController: UIViewController, UITableViewDataSource, UITableVie
             let obj = ["name": name, "overview": overview, "thumb": thumb, "showId": showId]
             popularTvShows.append(obj)
         }
-        self.getTopRatedTvShows()
+        self.currentPagePopular += 1
+        if flag == 0 {
+            self.getTopRatedTvShows(page: self.currentPageTopRated, flag: 0)
+        }
+        else if flag == 1 {
+            self.loadMoreIndicator.isHidden = true
+            self.loadMoreIndicator.stopAnimating()
+            self.tvShowsTableView.reloadData()
+        }
+        else if flag == 2 {
+            self.tvShowsTableView.reloadData()
+        }
     }
     
-    func parseTopRated(json: JSON)
+    func parseTopRated(json: JSON, flag: Int)
     {
         for item in json.arrayValue {
             var thumb = ""
@@ -148,36 +169,20 @@ class tvShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         self.loader.stopAnimating()
         self.tvShowTypeSegmentedControl.isEnabled = true
-        if self.tvShowTypeSegmentedControl.selectedSegmentIndex != 0 && self.tvShowTypeSegmentedControl.selectedSegmentIndex != 1 {
+        self.currentPageTopRated += 1
+        
+        if flag == 0 {
             self.tvShowTypeSegmentedControl.selectedSegmentIndex = 0
+            self.tvShowsTableView.reloadData()
         }
-        self.tvShowsTableView.reloadData()
-    }
-    
-    func getTopRatedTvShows()
-    {
-        
-        Alamofire.request("https://api.themoviedb.org/3/tv/top_rated?api_key=01082f35da875726ce81a65b79c1d08c&language=en-US&page=1").responseJSON { response in
-            
-            if let jsonValue = response.result.value {
-                let results = JSON(jsonValue)["results"]
-                if results.count > 0 {
-                    self.parseTopRated(json: results)
-                }
-            }
+        else if flag == 1 {
+            self.loadMoreIndicator.isHidden = false
+            self.loadMoreIndicator.stopAnimating()
+            self.tvShowsTableView.reloadData()
         }
-        
-//        let urlString = "https://api.themoviedb.org/3/tv/top_rated?api_key=01082f35da875726ce81a65b79c1d08c&language=en-US&page=1"
-//        if let url = URL(string: urlString) {
-//            if let data = try? Data(contentsOf: url) {
-//                let json = JSON(data: data)
-//                
-//                if json["results"].count > 0 {
-//                    parseTopRated(json: json)
-//                    return
-//                }
-//            }
-//        }
+        else if flag == 2 {
+            self.tvShowsTableView.reloadData()
+        }
     }
     
     func pull2refreshData()
@@ -185,14 +190,48 @@ class tvShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         if self.tvShowTypeSegmentedControl.selectedSegmentIndex == 0 {
             self.popularTvShows.removeAll()
             self.arrOfThumnailsPopular.removeAll()
-            self.getPopularTvShows()
+            self.currentPagePopular = 1
+            self.getPopularTvShows(page: self.currentPagePopular, flag: 2)
             self.pull2refresh.endRefreshing()
         } else {
             self.topRatedTVShows.removeAll()
             self.arrOfThumbnailsRated.removeAll()
-            self.getTopRatedTvShows()
+            self.currentPageTopRated = 1
+            self.getTopRatedTvShows(page: self.currentPageTopRated, flag: 2)
             self.pull2refresh.endRefreshing()
         }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset
+        let bounds = scrollView.bounds
+        let size = scrollView.contentSize
+        let inset = scrollView.contentInset
+        let y = CGFloat(offset.y + bounds.size.height - inset.bottom)
+        let h = CGFloat(size.height)
+        
+        let reload_distance = CGFloat(50)
+            if(y > (h + reload_distance)) {
+                switch self.tvShowTypeSegmentedControl.selectedSegmentIndex {
+                case 0:
+                    if currentPagePopular <= totalPagesPopular {
+                        self.loadMoreIndicator.isHidden = false
+                        self.loadMoreIndicator.startAnimating()
+                        self.getPopularTvShows(page: self.currentPagePopular, flag: 1)
+                    }
+                    break
+                case 1:
+                    if currentPageTopRated <= totalPagesTopRated {
+                        self.loadMoreIndicator.isHidden = false
+                        self.loadMoreIndicator.startAnimating()
+                        self.getTopRatedTvShows(page: self.currentPageTopRated, flag: 1)
+                    }
+                    break
+                default:
+                    print("default")
+                    break
+                }
+            }
     }
     
     override func viewDidLoad() {
@@ -200,32 +239,16 @@ class tvShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         self.loader.isHidden = false
         self.loader.startAnimating()
         self.tvShowTypeSegmentedControl.isEnabled = false
-        self.getPopularTvShows()
+        self.getPopularTvShows(page: self.currentPagePopular, flag: 0)
         self.pull2refresh.addTarget(self, action: #selector(tvShowsViewController.pull2refreshData), for: UIControlEvents.valueChanged)
         self.tvShowsTableView.refreshControl = pull2refresh
-//        let queue = DispatchQueue(label: "make_api_call", attributes: .concurrent, target: .main)
-//        
-//        let group = DispatchGroup()
-//        group.enter()
-//        queue.async(group: group) {
-//            self.getPopularTvShows()
-//            group.leave()
-//        }
-//        
-//        group.enter()
-//        queue.async(group: group) {
-//            self.getTopRatedTvShows()
-//            group.leave()
-//        }
-//        
-//        group.notify(queue: DispatchQueue.main) {
-//            if self.popularTvShows.count > 0 && self.topRatedTVShows.count > 0 {
-//                self.loader.stopAnimating()
-//                self.tvShowTypeSegmentedControl.isEnabled = true
-//                self.tvShowTypeSegmentedControl.selectedSegmentIndex = 0
-//                self.tvShowsTableView.reloadData()
-//            }
-//        }
+        
+        //loadMoreIndicator config
+        self.loadMoreIndicator.color = UIColor.gray
+        self.loadMoreIndicator.hidesWhenStopped = true
+        self.loadMoreIndicator.isHidden = true
+        self.loadMoreIndicator.frame = CGRect(x: 0, y: 20, width: 20, height: 20)
+        self.tvShowsTableView.tableFooterView = loadMoreIndicator
         
         // Do any additional setup after loading the view.
     }
