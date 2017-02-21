@@ -87,7 +87,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="657" y="-214"/>
+            <point key="canvasLocation" x="-282" y="-300"/>
         </scene>
         <!--Genres-->
         <scene sceneID="1gv-jt-x46">
@@ -110,7 +110,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="49"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mib-vr-jkf" id="BKL-Oj-P1u">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="48"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zdm-MT-l7b">
@@ -166,7 +166,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="98"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mIJ-CW-lMp" id="hBZ-Kt-v7V">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="97"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="98"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s5I-jV-s9H">
@@ -209,7 +209,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="375" height="49"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3La-1o-9we" id="N2Q-ij-GTa">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S0x-DC-wVB">
@@ -265,7 +265,7 @@
                     </connections>
                 </searchBar>
             </objects>
-            <point key="canvasLocation" x="1440.8" y="1508.9955022488757"/>
+            <point key="canvasLocation" x="654" y="1456"/>
         </scene>
         <!--Genre Movies View Controller-->
         <scene sceneID="t3J-FO-y4K">
@@ -288,7 +288,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="119"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Nm-6d-niD" id="zYa-GU-fzY">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="118"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="119"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bvO-JT-xRE">
@@ -424,7 +424,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4fn-iR-wr4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2294" y="716"/>
+            <point key="canvasLocation" x="3020" y="689"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="p8Y-3W-Vdx">
@@ -513,7 +513,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mi2-x9-Cah" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1446" y="-210"/>
+            <point key="canvasLocation" x="2174" y="-299"/>
         </scene>
         <!--Custom Web View Controller-->
         <scene sceneID="QKZ-DW-3im">
@@ -524,7 +524,7 @@
                         <viewControllerLayoutGuide type="bottom" id="dua-iX-6d6"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Moh-Bc-qaX">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="664"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" fixedFrame="YES" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="80y-6m-FIb">
@@ -541,7 +541,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CHb-Mn-K43" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2294" y="-214"/>
+            <point key="canvasLocation" x="3713" y="-354"/>
         </scene>
         <!--Upcoming-->
         <scene sceneID="WGD-2M-DId">
@@ -563,7 +563,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xSZ-0G-Vhh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-282" y="-214"/>
+            <point key="canvasLocation" x="-1282" y="-300"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Pye-iu-O7h">
@@ -626,7 +626,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gn5-yz-sIh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-282" y="1509"/>
+            <point key="canvasLocation" x="-282" y="1456"/>
         </scene>
         <!--TV Shows-->
         <scene sceneID="tFw-Yp-Lkv">
@@ -660,7 +660,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="119"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Mf2-2L-3Gd" id="rel-7D-63t">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="118"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="119"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oIR-Qj-e2r">
@@ -712,7 +712,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="btq-tC-f0l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="652" y="2316.7916041979011"/>
+            <point key="canvasLocation" x="-1282" y="2219"/>
         </scene>
         <!--TV shows-->
         <scene sceneID="08Y-xk-10U">
@@ -731,7 +731,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fje-H5-uKe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-287.19999999999999" y="2316.7916041979011"/>
+            <point key="canvasLocation" x="-1282" y="1456"/>
         </scene>
     </scenes>
     <resources>
@@ -742,6 +742,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ohJ-nA-iyJ"/>
-        <segue reference="SHY-Nt-Dcr"/>
+        <segue reference="7yC-rS-4ff"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -17,8 +17,7 @@ class tvShowsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBOutlet weak var tvShowsTableView: UITableView!
     
-//    var json: JSON = []
-//    var jsonRated: JSON = []
+    let pull2refresh = UIRefreshControl()
     
     var popularTvShows = [[String: String]]()
     
@@ -149,7 +148,9 @@ class tvShowsViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         self.loader.stopAnimating()
         self.tvShowTypeSegmentedControl.isEnabled = true
-        self.tvShowTypeSegmentedControl.selectedSegmentIndex = 0
+        if self.tvShowTypeSegmentedControl.selectedSegmentIndex != 0 && self.tvShowTypeSegmentedControl.selectedSegmentIndex != 1 {
+            self.tvShowTypeSegmentedControl.selectedSegmentIndex = 0
+        }
         self.tvShowsTableView.reloadData()
     }
     
@@ -179,12 +180,29 @@ class tvShowsViewController: UIViewController, UITableViewDataSource, UITableVie
 //        }
     }
     
+    func pull2refreshData()
+    {
+        if self.tvShowTypeSegmentedControl.selectedSegmentIndex == 0 {
+            self.popularTvShows.removeAll()
+            self.arrOfThumnailsPopular.removeAll()
+            self.getPopularTvShows()
+            self.pull2refresh.endRefreshing()
+        } else {
+            self.topRatedTVShows.removeAll()
+            self.arrOfThumbnailsRated.removeAll()
+            self.getTopRatedTvShows()
+            self.pull2refresh.endRefreshing()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loader.isHidden = false
         self.loader.startAnimating()
         self.tvShowTypeSegmentedControl.isEnabled = false
         self.getPopularTvShows()
+        self.pull2refresh.addTarget(self, action: #selector(tvShowsViewController.pull2refreshData), for: UIControlEvents.valueChanged)
+        self.tvShowsTableView.refreshControl = pull2refresh
 //        let queue = DispatchQueue(label: "make_api_call", attributes: .concurrent, target: .main)
 //        
 //        let group = DispatchGroup()
