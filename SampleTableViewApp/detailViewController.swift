@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class detailViewController: UIViewController {
+class detailViewController: UIViewController, UIWebViewDelegate {
     
     let loader = UIActivityIndicatorView()
     
@@ -19,6 +19,7 @@ class detailViewController: UIViewController {
     @IBOutlet weak var movieReleasedLabel: UILabel!
     @IBOutlet weak var movieLanguageLabel: UILabel!
     
+    @IBOutlet weak var movieTrailerWebView: UIWebView!
     @IBOutlet weak var movieVotesLabel: UILabel!
     @IBOutlet weak var movieRuntimeLabel: UILabel!
     
@@ -27,14 +28,28 @@ class detailViewController: UIViewController {
     var passedValue: String = ""
     var movieId: Int = -1
     var imdbId: String = ""
+    var movieTrailerID: String = ""
     
     func roundIt(value: Float, step: Float) -> Float {
         let inv = 1.0 / step
         return Float(round(value * inv) / inv)
     }
     
+    func loadYouTube(videoID: String) {
+        guard
+            let youtubeURL = URL(string: "https://www.youtube.com/embed/\(videoID)")
+            else { return }
+        self.movieTrailerWebView.loadRequest(URLRequest(url: youtubeURL))
+    }
+    
+    func webViewDidStartLoad(_ webView: UIWebView) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.movieTrailerWebView.delegate = self
+        self.movieTrailerWebView.isHidden = true
         self.loader.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         self.loader.isHidden = false
         self.loader.hidesWhenStopped = true
@@ -90,12 +105,36 @@ class detailViewController: UIViewController {
                     self.myScrollView.addSubview(imageViewHalf)
                 }
                 
+                for item in results["videos"]["results"].arrayValue {
+                    if item.count > 0 {
+                        if item["type"] == "Trailer" {
+                            self.movieTrailerID = item["key"].stringValue
+                        }
+                        else {
+                            self.movieTrailerID = ""
+                        }
+                    }
+                }
+                
                 //backdrop image
-                if results["backdrop_path"] != JSON.null {
-                    let imageUrl: String = results["backdrop_path"].stringValue
-                    let url = URL(string: "https://image.tmdb.org/t/p/w500/" + imageUrl)
-                    let data = try? Data(contentsOf: url!)
-                    self.backdropImage.image = UIImage(data: data!)
+                if self.movieTrailerID == "" {
+                    if results["backdrop_path"] != JSON.null {
+                        self.backdropImage.isHidden = false
+                        let imageUrl: String = results["backdrop_path"].stringValue
+                        let url = URL(string: "https://image.tmdb.org/t/p/w500/" + imageUrl)
+                        let data = try? Data(contentsOf: url!)
+                        self.backdropImage.image = UIImage(data: data!)
+                    }
+                    else {
+                        self.backdropImage.isHidden = true
+                        self.movieTrailerWebView.isHidden = true
+                        self.movieOverviewTextView.frame = CGRect(x: 0, y: 9, width: self.view.frame.width, height: 148)
+                    }
+                }
+                else {
+                    self.backdropImage.isHidden = true
+                    self.movieTrailerWebView.isHidden = false
+                    self.loadYouTube(videoID: self.movieTrailerID)
                 }
                 self.loader.stopAnimating()
             }

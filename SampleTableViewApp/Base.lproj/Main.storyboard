@@ -462,7 +462,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2T8-LO-1xj">
-                                        <rect key="frame" x="8" y="263" width="359" height="311"/>
+                                        <rect key="frame" x="8" y="165" width="359" height="311"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -487,6 +487,11 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZRn-on-e1h">
+                                        <rect key="frame" x="0.0" y="9" width="375" height="148"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </webView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.98823529409999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="50" maxX="0.0" maxY="0.0"/>
@@ -502,6 +507,7 @@
                         <outlet property="movieOverviewTextView" destination="2T8-LO-1xj" id="rwH-rf-CoO"/>
                         <outlet property="movieReleasedLabel" destination="JgG-Mf-X4g" id="SEL-q5-RFr"/>
                         <outlet property="movieRuntimeLabel" destination="mV4-5i-xjo" id="2ky-R8-Zhh"/>
+                        <outlet property="movieTrailerWebView" destination="ZRn-on-e1h" id="a8Y-yl-hgJ"/>
                         <outlet property="myScrollView" destination="tKH-k6-y0j" id="Adc-0s-Ij1"/>
                     </connections>
                 </viewController>
