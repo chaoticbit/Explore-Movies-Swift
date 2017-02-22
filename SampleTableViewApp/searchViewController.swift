@@ -182,15 +182,14 @@ class searchViewController: UIViewController, UITableViewDataSource, UITableView
             let searchRow = self.searchResults[indexPath.row]
             print("You selected name : " + searchRow["title"]!)
             if self.selectedIndex == [0, 0] {
-                guard let genreMoviesDetailVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "GenreMoviesDetailVC") as? genreMoviesDetailViewController else {
+                guard let detailVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "detailVC") as? detailViewController else {
                     print("Could not instantiate view controller with identifier of type GenreMoviesViewController")
                     return
                 }
                 let searchRow = self.searchResults[indexPath.row]
-                genreMoviesDetailVC.passedValue = searchRow["title"]!
-                genreMoviesDetailVC.movieId = JSON(searchRow["movieId"]!).intValue
-                genreMoviesDetailVC.type = selectedIndex
-                self.navigationController?.pushViewController(genreMoviesDetailVC, animated: true)
+                detailVC.passedValue = searchRow["title"]!
+                detailVC.movieId = JSON(searchRow["movieId"]!).intValue
+                self.navigationController?.pushViewController(detailVC, animated: true)
             }
         }
         

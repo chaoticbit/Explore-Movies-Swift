@@ -53,15 +53,15 @@ class detailViewController: UIViewController {
                 self.imdbId = results["imdb_id"].stringValue
                 self.movieReleasedLabel.text = "Released on " + results["release_date"].stringValue
                 self.movieLanguageLabel.text = "Language - " + results["original_language"].stringValue
-                self.movieVotesLabel.text = "Vote average - " + results["average_vote"].stringValue
+                self.movieVotesLabel.text = "Vote average - " + results["vote_average"].stringValue
                 self.movieRuntimeLabel.text = "Runtime - " + results["runtime"].stringValue
                 self.movieOverviewTextView.text = results["overview"].stringValue
-                
-                let imageUrl: String = results["backdrop_path"].stringValue
-                let url = URL(string: "https://image.tmdb.org/t/p/w500/" + imageUrl)
-                let data = try? Data(contentsOf: url!)
-                self.backdropImage.image = UIImage(data: data!)
-                
+                if results["backdrop_path"] != JSON.null {
+                    let imageUrl: String = results["backdrop_path"].stringValue
+                    let url = URL(string: "https://image.tmdb.org/t/p/w500/" + imageUrl)
+                    let data = try? Data(contentsOf: url!)
+                    self.backdropImage.image = UIImage(data: data!)
+                }
                 self.loader.stopAnimating()
             }
         }
