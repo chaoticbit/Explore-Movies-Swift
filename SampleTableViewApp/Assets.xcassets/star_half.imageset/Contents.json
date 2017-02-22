@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "star_half.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Clapperboard Filled_50.png",
       "scale" : "2x"
     },
     {
