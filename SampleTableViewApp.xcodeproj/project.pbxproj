@@ -15,6 +15,7 @@
 		1656FFAF1E509DD2006F2E0B /* movie_projector-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 1656FFAE1E509DD2006F2E0B /* movie_projector-32.png */; };
 		1658B8971E572BF60069B6B7 /* searchPreferenceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1658B8961E572BF60069B6B7 /* searchPreferenceTableViewCell.swift */; };
 		1658B8991E5733F90069B6B7 /* Ok_25.png in Resources */ = {isa = PBXBuildFile; fileRef = 1658B8981E5733F90069B6B7 /* Ok_25.png */; };
+		16958CB41E5DF89D00ABD1A8 /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16958CB31E5DF89D00ABD1A8 /* ErrorViewController.swift */; };
 		169DE89C1E52E5D000729C04 /* tv_show-25.png in Resources */ = {isa = PBXBuildFile; fileRef = 169DE89B1E52E5D000729C04 /* tv_show-25.png */; };
 		169DE89E1E52E93F00729C04 /* tvShowsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DE89D1E52E93F00729C04 /* tvShowsViewController.swift */; };
 		169DE8A01E52EAC100729C04 /* tvShowsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DE89F1E52EAC100729C04 /* tvShowsTableViewCell.swift */; };
@@ -88,6 +89,7 @@
 		1656FFAE1E509DD2006F2E0B /* movie_projector-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "movie_projector-32.png"; path = "../../all_icons_by_Icons8_free/iOS7/PNG/32/Photo_Video/movie_projector-32.png"; sourceTree = "<group>"; };
 		1658B8961E572BF60069B6B7 /* searchPreferenceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = searchPreferenceTableViewCell.swift; sourceTree = "<group>"; };
 		1658B8981E5733F90069B6B7 /* Ok_25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Ok_25.png; path = "../../../Downloads/Ok 25, 50 px/Ok_25.png"; sourceTree = "<group>"; };
+		16958CB31E5DF89D00ABD1A8 /* ErrorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorViewController.swift; sourceTree = "<group>"; };
 		169DE89B1E52E5D000729C04 /* tv_show-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tv_show-25.png"; path = "../../all_icons_by_Icons8_free/iOS7/PNG/25/Media_Controls/tv_show-25.png"; sourceTree = "<group>"; };
 		169DE89D1E52E93F00729C04 /* tvShowsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tvShowsViewController.swift; sourceTree = "<group>"; };
 		169DE89F1E52EAC100729C04 /* tvShowsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tvShowsTableViewCell.swift; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 				16C0EE141E4F8736000C36D0 /* genresViewController.swift */,
 				16C0EE161E4F889F000C36D0 /* genresTableViewCell.swift */,
 				16B9E49C1E4CCBAB00C934E5 /* Main.storyboard */,
+				16958CB31E5DF89D00ABD1A8 /* ErrorViewController.swift */,
 				169DE89D1E52E93F00729C04 /* tvShowsViewController.swift */,
 				169DE89F1E52EAC100729C04 /* tvShowsTableViewCell.swift */,
 				160EC31F1E51E40800DC8B8C /* searchTableViewCell.swift */,
@@ -617,6 +620,7 @@
 				160EC3201E51E40800DC8B8C /* searchTableViewCell.swift in Sources */,
 				169DE8A01E52EAC100729C04 /* tvShowsTableViewCell.swift in Sources */,
 				1658B8971E572BF60069B6B7 /* searchPreferenceTableViewCell.swift in Sources */,
+				16958CB41E5DF89D00ABD1A8 /* ErrorViewController.swift in Sources */,
 				16B9E4991E4CCBAB00C934E5 /* AppDelegate.swift in Sources */,
 				16B9E4C71E4CCE6E00C934E5 /* customTableViewCell.swift in Sources */,
 				1656FFA91E506887006F2E0B /* genreMoviesViewCell.swift in Sources */,
