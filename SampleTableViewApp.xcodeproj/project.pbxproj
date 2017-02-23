@@ -12,6 +12,7 @@
 		160EC3201E51E40800DC8B8C /* searchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160EC31F1E51E40800DC8B8C /* searchTableViewCell.swift */; };
 		1653C6B11E5F0515005457CB /* bgImgCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1653C6B01E5F0515005457CB /* bgImgCollectionViewCell.swift */; };
 		1653C6B31E5F1E00005457CB /* castCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1653C6B21E5F1E00005457CB /* castCollectionViewCell.swift */; };
+		1653C6B51E5F4672005457CB /* galleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1653C6B41E5F4672005457CB /* galleryViewController.swift */; };
 		1656FFA91E506887006F2E0B /* genreMoviesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1656FFA81E506887006F2E0B /* genreMoviesViewCell.swift */; };
 		1656FFAB1E5068B5006F2E0B /* genreDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1656FFAA1E5068B5006F2E0B /* genreDetailViewController.swift */; };
 		1656FFAF1E509DD2006F2E0B /* movie_projector-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 1656FFAE1E509DD2006F2E0B /* movie_projector-32.png */; };
@@ -88,6 +89,7 @@
 		160EC31F1E51E40800DC8B8C /* searchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = searchTableViewCell.swift; sourceTree = "<group>"; };
 		1653C6B01E5F0515005457CB /* bgImgCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = bgImgCollectionViewCell.swift; sourceTree = "<group>"; };
 		1653C6B21E5F1E00005457CB /* castCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = castCollectionViewCell.swift; sourceTree = "<group>"; };
+		1653C6B41E5F4672005457CB /* galleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = galleryViewController.swift; sourceTree = "<group>"; };
 		1656FFA81E506887006F2E0B /* genreMoviesViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = genreMoviesViewCell.swift; sourceTree = "<group>"; };
 		1656FFAA1E5068B5006F2E0B /* genreDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = genreDetailViewController.swift; sourceTree = "<group>"; };
 		1656FFAE1E509DD2006F2E0B /* movie_projector-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "movie_projector-32.png"; path = "../../all_icons_by_Icons8_free/iOS7/PNG/32/Photo_Video/movie_projector-32.png"; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				1656FFA81E506887006F2E0B /* genreMoviesViewCell.swift */,
 				16B9E4C81E4CE4FC00C934E5 /* detailViewController.swift */,
 				1653C6B01E5F0515005457CB /* bgImgCollectionViewCell.swift */,
+				1653C6B41E5F4672005457CB /* galleryViewController.swift */,
 				16B9E4C61E4CCE6E00C934E5 /* customTableViewCell.swift */,
 				16B9E49F1E4CCBAB00C934E5 /* Assets.xcassets */,
 				16B9E4A11E4CCBAB00C934E5 /* LaunchScreen.storyboard */,
@@ -639,6 +642,7 @@
 				16C0EE151E4F8736000C36D0 /* genresViewController.swift in Sources */,
 				16DDF3D71E4F00FC00AC33B0 /* customWebViewController.swift in Sources */,
 				1656FFAB1E5068B5006F2E0B /* genreDetailViewController.swift in Sources */,
+				1653C6B51E5F4672005457CB /* galleryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

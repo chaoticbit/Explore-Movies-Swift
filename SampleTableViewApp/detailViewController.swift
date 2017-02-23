@@ -134,7 +134,7 @@ class detailViewController: UIViewController, UIWebViewDelegate, UICollectionVie
                 if results["images"]["backdrops"].count > 0 {
                     for item in results["images"]["backdrops"].arrayValue {
                         let imageUrl: String = item["file_path"].stringValue
-                        let url = URL(string: "https://image.tmdb.org/t/p/w500" + imageUrl)
+                        let url = URL(string: "https://image.tmdb.org/t/p/original" + imageUrl)
                         let data = try? Data(contentsOf: url!)
                         self.arrOfThumnails.append(UIImage(data: data!)!)
                     }
@@ -221,10 +221,22 @@ class detailViewController: UIViewController, UIWebViewDelegate, UICollectionVie
         else { preconditionFailure ("unexpected cell type") }
     }
     
+    @IBAction func backFromModal(segue: UIStoryboardSegue) {
+        print("and we are back")                
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toWebView" {
             let webVC = segue.destination as? customWebViewController            
             webVC?.imdbId = imdbId
+        }
+        
+        if segue.identifier == "toGallery" {
+            let item = self.bgImagesCollectionView!.indexPathsForSelectedItems
+            let selectedItem = item?.first
+            let galleryVC = segue.destination as? galleryViewController
+            galleryVC?.images = self.arrOfThumnails
+            galleryVC?.index = (selectedItem?.row)!
         }
     }
 
