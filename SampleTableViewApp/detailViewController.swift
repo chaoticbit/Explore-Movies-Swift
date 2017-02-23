@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class detailViewController: UIViewController, UIWebViewDelegate {
+class detailViewController: UIViewController, UIWebViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
     
     let loader = UIActivityIndicatorView()
     
@@ -22,6 +22,7 @@ class detailViewController: UIViewController, UIWebViewDelegate {
     @IBOutlet weak var movieTrailerWebView: UIWebView!
     @IBOutlet weak var movieVotesLabel: UILabel!
     @IBOutlet weak var movieRuntimeLabel: UILabel!
+    @IBOutlet weak var bgImagesCollectionView: UICollectionView!
     
 //    @IBOutlet weak var movieOverviewLabel: UILabel!
     @IBOutlet weak var movieOverviewTextView: UITextView!
@@ -29,6 +30,7 @@ class detailViewController: UIViewController, UIWebViewDelegate {
     var movieId: Int = -1
     var imdbId: String = ""
     var movieTrailerID: String = ""
+    var arrOfThumnails: [UIImage] = []
     
     func roundIt(value: Float, step: Float) -> Float {
         let inv = 1.0 / step
@@ -48,6 +50,8 @@ class detailViewController: UIViewController, UIWebViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.bgImagesCollectionView.delegate = self
+        self.bgImagesCollectionView.dataSource = self
         self.movieTrailerWebView.delegate = self
         self.movieTrailerWebView.isHidden = true
         self.loader.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
@@ -116,6 +120,15 @@ class detailViewController: UIViewController, UIWebViewDelegate {
                     }
                 }
                 
+                if results["images"]["backdrops"].count > 0 {
+                    for item in results["images"]["backdrops"].arrayValue {
+                        let imageUrl: String = item["file_path"].stringValue
+                        let url = URL(string: "https://image.tmdb.org/t/p/w500" + imageUrl)
+                        let data = try? Data(contentsOf: url!)
+                        self.arrOfThumnails.append(UIImage(data: data!)!)
+                    }
+                }
+                
                 //backdrop image
                 if self.movieTrailerID == "" {
                     if results["backdrop_path"] != JSON.null {
@@ -128,7 +141,7 @@ class detailViewController: UIViewController, UIWebViewDelegate {
                     else {
                         self.backdropImage.isHidden = true
                         self.movieTrailerWebView.isHidden = true
-                        self.movieOverviewTextView.frame = CGRect(x: 0, y: 9, width: self.view.frame.width, height: 148)
+                        self.movieOverviewTextView.frame = CGRect(x: 0, y: 9, width: self.view.frame.width, height: 168)
                     }
                 }
                 else {
@@ -137,8 +150,27 @@ class detailViewController: UIViewController, UIWebViewDelegate {
                     self.loadYouTube(videoID: self.movieTrailerID)
                 }
                 self.loader.stopAnimating()
+                self.bgImagesCollectionView.reloadData()
             }
         }
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of items
+        return self.arrOfThumnails.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "bgImgCell", for: indexPath as IndexPath) as! bgImgCollectionViewCell
+        cell.backdropImageView.image = self.arrOfThumnails[indexPath.row]
+        // Configure the cell
+        
+        return cell
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
