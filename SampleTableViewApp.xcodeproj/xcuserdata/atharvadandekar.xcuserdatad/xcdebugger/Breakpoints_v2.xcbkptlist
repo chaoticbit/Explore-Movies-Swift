@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SampleTableViewApp/detailViewController.swift"
-            timestampString = "509544059.516291"
+            timestampString = "509551442.64044"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
             landmarkName = "roundIt(value:step:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SampleTableViewApp/detailViewController.swift"
-            timestampString = "509544436.791006"
+            timestampString = "509551442.64044"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>

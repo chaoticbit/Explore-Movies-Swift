@@ -23,14 +23,18 @@ class detailViewController: UIViewController, UIWebViewDelegate, UICollectionVie
     @IBOutlet weak var movieVotesLabel: UILabel!
     @IBOutlet weak var movieRuntimeLabel: UILabel!
     @IBOutlet weak var bgImagesCollectionView: UICollectionView!
+    @IBOutlet weak var castCollectionView: UICollectionView!
     
-//    @IBOutlet weak var movieOverviewLabel: UILabel!
     @IBOutlet weak var movieOverviewTextView: UITextView!
+    
     var passedValue: String = ""
     var movieId: Int = -1
     var imdbId: String = ""
     var movieTrailerID: String = ""
     var arrOfThumnails: [UIImage] = []
+    
+    var cast: [String] = []
+    var castProfilePics: [UIImage] = []
     
     func roundIt(value: Float, step: Float) -> Float {
         let inv = 1.0 / step
@@ -52,23 +56,29 @@ class detailViewController: UIViewController, UIWebViewDelegate, UICollectionVie
         super.viewDidLoad()
         self.bgImagesCollectionView.delegate = self
         self.bgImagesCollectionView.dataSource = self
+        self.castCollectionView.delegate = self
+        self.castCollectionView.dataSource = self
+        
         self.movieTrailerWebView.delegate = self
         self.movieTrailerWebView.isHidden = true
+        
         self.loader.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         self.loader.isHidden = false
         self.loader.hidesWhenStopped = true
         self.loader.backgroundColor = UIColor.white
         self.loader.color = UIColor.gray
+        
         self.view.addSubview(loader)
         self.view.bringSubview(toFront: loader)
         self.loader.startAnimating()
         
         self.title = passedValue        
-        self.automaticallyAdjustsScrollViewInsets = true        
+        self.automaticallyAdjustsScrollViewInsets = true
+        
         movieOverviewTextView.backgroundColor = UIColor.clear
         movieOverviewTextView.textAlignment = NSTextAlignment.justified
         
-        myScrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 650)
+        myScrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 700)
         
         Alamofire.request("https://api.themoviedb.org/3/movie/\(self.movieId)?api_key=01082f35da875726ce81a65b79c1d08c&append_to_response=reviews,credits,videos,images").responseJSON { response in
             
@@ -120,12 +130,31 @@ class detailViewController: UIViewController, UIWebViewDelegate, UICollectionVie
                     }
                 }
                 
+                //Backdrop images collection view
                 if results["images"]["backdrops"].count > 0 {
                     for item in results["images"]["backdrops"].arrayValue {
                         let imageUrl: String = item["file_path"].stringValue
                         let url = URL(string: "https://image.tmdb.org/t/p/w500" + imageUrl)
                         let data = try? Data(contentsOf: url!)
                         self.arrOfThumnails.append(UIImage(data: data!)!)
+                    }
+                }
+                
+                //movie cast and images
+                if results["credits"]["cast"].count > 0 {
+                    for item in results["credits"]["cast"].arrayValue {
+                        let name = item["name"].stringValue
+                        self.cast.append(name)
+                        
+                        if item["profile_path"] == JSON.null {
+                            self.castProfilePics.append(UIImage(named: "default_profile_pic.png")!)
+                        }
+                        else {
+                            let imageUrl: String = item["profile_path"].stringValue
+                            let url = URL(string: "https://image.tmdb.org/t/p/w500" + imageUrl)
+                            let data = try? Data(contentsOf: url!)
+                            self.castProfilePics.append(UIImage(data: data!)!)
+                        }
                     }
                 }
                 
@@ -151,6 +180,7 @@ class detailViewController: UIViewController, UIWebViewDelegate, UICollectionVie
                 }
                 self.loader.stopAnimating()
                 self.bgImagesCollectionView.reloadData()
+                self.castCollectionView.reloadData()
             }
         }
     }
@@ -161,16 +191,34 @@ class detailViewController: UIViewController, UIWebViewDelegate, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return self.arrOfThumnails.count
+        
+        var count: Int?
+        
+        if collectionView == self.bgImagesCollectionView {
+            count = self.arrOfThumnails.count
+        }
+        else if collectionView == self.castCollectionView {
+            count = self.cast.count
+        }
+        
+        return count!
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "bgImgCell", for: indexPath as IndexPath) as! bgImgCollectionViewCell
-        cell.backdropImageView.image = self.arrOfThumnails[indexPath.row]
-        // Configure the cell
         
-        return cell
+        if collectionView == self.bgImagesCollectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "bgImgCell", for: indexPath as IndexPath) as! bgImgCollectionViewCell
+            cell.backdropImageView.image = self.arrOfThumnails[indexPath.row]
+            return cell
+        }
+        else if collectionView == self.castCollectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "castCell", for: indexPath as IndexPath) as! castCollectionViewCell
+            cell.castNameLabel.text = self.cast[indexPath.row]
+            cell.castProfilePicImageView.image = self.castProfilePics[indexPath.row]
+            return cell
+        }
+        
+        else { preconditionFailure ("unexpected cell type") }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
