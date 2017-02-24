@@ -8,7 +8,7 @@
 
 import UIKit
 
-class galleryViewController: UIViewController {
+class galleryViewController: UIViewController, UIScrollViewDelegate {
 
     @IBOutlet weak var galleryNavItem: UINavigationItem!
     @IBOutlet weak var galleryImageView: UIImageView!
@@ -17,6 +17,7 @@ class galleryViewController: UIViewController {
     
     @IBOutlet weak var nextBtn: UIBarButtonItem!
     
+    @IBOutlet weak var galleryScrollView: UIScrollView!
     var images: [UIImage] = []
     var index: Int = 0
     var imageIndex: Int = 0
@@ -26,6 +27,20 @@ class galleryViewController: UIViewController {
         self.galleryNavItem.title = "\(imageIndex) out of \(images.count - 1)"
         self.galleryImageView.isUserInteractionEnabled = true
         
+        //Setup scrollview
+        galleryScrollView.delegate = self        
+        galleryScrollView.alwaysBounceVertical = false
+        galleryScrollView.alwaysBounceHorizontal = false
+        galleryScrollView.showsVerticalScrollIndicator = true
+        galleryScrollView.flashScrollIndicators()
+        
+        galleryScrollView.minimumZoomScale = 1.0
+        galleryScrollView.maximumZoomScale = 10.0
+        
+        galleryImageView.layer.cornerRadius = 11.0
+        galleryImageView.clipsToBounds = false
+        
+        //Setup swipe gestures
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(galleryViewController.swiped(gesture:)))
         swipeRight.direction = UISwipeGestureRecognizerDirection.right
         self.galleryImageView.addGestureRecognizer(swipeRight)
@@ -37,6 +52,9 @@ class galleryViewController: UIViewController {
         self.galleryImageView.image = self.images[imageIndex]
     }
     
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return self.galleryImageView
+    }
     
     func swiped(gesture: UIGestureRecognizer) {
         
