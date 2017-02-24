@@ -93,30 +93,6 @@ class galleryViewController: UIViewController, UIScrollViewDelegate {
         
     }
     
-//    @IBAction func toPrevious(_ sender: Any) {
-//        if self.index > 0 || self.index <= self.images.count {
-//            self.previousBtn.isEnabled = true
-//            self.galleryImageView.image = self.images[self.index]
-//            self.galleryNavItem.title = "\(index) out of \(images.count)"
-//            self.index -= 1
-//        }
-//        else {
-//            self.previousBtn.isEnabled = false
-//        }
-//    }
-//    
-//    @IBAction func toNext(_ sender: Any) {
-//        if self.index >= 0 || self.index < self.images.count {
-//            self.nextBtn.isEnabled = true
-//            self.galleryImageView.image = self.images[self.index]
-//            self.galleryNavItem.title = "\(index) out of \(images.count)"
-//            self.index += 1
-//        }
-//        else {
-//            self.nextBtn.isEnabled = false
-//        }
-//    }
-//    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
