@@ -23,6 +23,7 @@
 		169DE89E1E52E93F00729C04 /* tvShowsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DE89D1E52E93F00729C04 /* tvShowsViewController.swift */; };
 		169DE8A01E52EAC100729C04 /* tvShowsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DE89F1E52EAC100729C04 /* tvShowsTableViewCell.swift */; };
 		169DE8A41E53096800729C04 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DE8A31E53096800729C04 /* SwiftyJSON.swift */; };
+		16AE3B401E60999F00CFDDAD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16AE3B3F1E60999F00CFDDAD /* LoginViewController.swift */; };
 		16B9E4991E4CCBAB00C934E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B9E4981E4CCBAB00C934E5 /* AppDelegate.swift */; };
 		16B9E49B1E4CCBAB00C934E5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B9E49A1E4CCBAB00C934E5 /* ViewController.swift */; };
 		16B9E49E1E4CCBAB00C934E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16B9E49C1E4CCBAB00C934E5 /* Main.storyboard */; };
@@ -100,6 +101,8 @@
 		169DE89D1E52E93F00729C04 /* tvShowsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tvShowsViewController.swift; sourceTree = "<group>"; };
 		169DE89F1E52EAC100729C04 /* tvShowsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tvShowsTableViewCell.swift; sourceTree = "<group>"; };
 		169DE8A31E53096800729C04 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		16AE3B3F1E60999F00CFDDAD /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		16AE3B411E60A24600CFDDAD /* SampleTableViewApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SampleTableViewApp.entitlements; sourceTree = "<group>"; };
 		16B9E4951E4CCBAB00C934E5 /* SampleTableViewApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleTableViewApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		16B9E4981E4CCBAB00C934E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		16B9E49A1E4CCBAB00C934E5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -207,8 +210,10 @@
 		16B9E4971E4CCBAB00C934E5 /* SampleTableViewApp */ = {
 			isa = PBXGroup;
 			children = (
+				16AE3B411E60A24600CFDDAD /* SampleTableViewApp.entitlements */,
 				16B9E4981E4CCBAB00C934E5 /* AppDelegate.swift */,
 				16B9E49A1E4CCBAB00C934E5 /* ViewController.swift */,
+				16AE3B3F1E60999F00CFDDAD /* LoginViewController.swift */,
 				16C0EE141E4F8736000C36D0 /* genresViewController.swift */,
 				16C0EE161E4F889F000C36D0 /* genresTableViewCell.swift */,
 				16B9E49C1E4CCBAB00C934E5 /* Main.storyboard */,
@@ -390,6 +395,11 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = GH7WBR2EBV;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					16B9E4A81E4CCBAB00C934E5 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -632,6 +642,7 @@
 				169DE8A01E52EAC100729C04 /* tvShowsTableViewCell.swift in Sources */,
 				1658B8971E572BF60069B6B7 /* searchPreferenceTableViewCell.swift in Sources */,
 				16958CB41E5DF89D00ABD1A8 /* ErrorViewController.swift in Sources */,
+				16AE3B401E60999F00CFDDAD /* LoginViewController.swift in Sources */,
 				16B9E4991E4CCBAB00C934E5 /* AppDelegate.swift in Sources */,
 				16B9E4C71E4CCE6E00C934E5 /* customTableViewCell.swift in Sources */,
 				1656FFA91E506887006F2E0B /* genreMoviesViewCell.swift in Sources */,
@@ -793,6 +804,7 @@
 			baseConfigurationReference = 2C817BB89D129A6371457E6A /* Pods-SampleTableViewApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SampleTableViewApp/SampleTableViewApp.entitlements;
 				DEVELOPMENT_TEAM = GH7WBR2EBV;
 				INFOPLIST_FILE = SampleTableViewApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -808,6 +820,7 @@
 			baseConfigurationReference = 78F79E733AC863C92F07EA33 /* Pods-SampleTableViewApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SampleTableViewApp/SampleTableViewApp.entitlements;
 				DEVELOPMENT_TEAM = GH7WBR2EBV;
 				INFOPLIST_FILE = SampleTableViewApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

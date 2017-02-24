@@ -139,6 +139,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        var dict : [String : AnyObject]!
+        
         let theHeight = view.frame.size.height //grabs the height of your view
         self.myTableView.refreshControl = refreshControl
         self.loader.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
