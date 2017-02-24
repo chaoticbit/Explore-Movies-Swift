@@ -236,7 +236,7 @@ class detailViewController: UIViewController, UIWebViewDelegate, UICollectionVie
             let selectedItem = item?.first
             let galleryVC = segue.destination as? galleryViewController
             galleryVC?.images = self.arrOfThumnails
-            galleryVC?.index = (selectedItem?.row)!
+            galleryVC?.imageIndex = (selectedItem?.row)!
         }
     }
 
