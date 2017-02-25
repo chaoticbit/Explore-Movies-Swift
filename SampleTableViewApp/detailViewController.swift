@@ -236,7 +236,8 @@ class detailViewController: UIViewController, UIWebViewDelegate, UICollectionVie
         if segue.identifier == "toGallery" {
             let item = self.bgImagesCollectionView!.indexPathsForSelectedItems
             let selectedItem = item?.first
-            let galleryVC = segue.destination as? galleryViewController
+            let destinationVC = segue.destination as? UINavigationController
+            let galleryVC = destinationVC?.topViewController as? galleryViewController
             galleryVC?.images = self.arrOfThumnails
             galleryVC?.imageIndex = (selectedItem?.row)!
         }

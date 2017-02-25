@@ -13,6 +13,7 @@ class galleryViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var galleryNavItem: UINavigationItem!
     @IBOutlet weak var galleryImageView: UIImageView!
     
+    @IBOutlet weak var navItem: UINavigationItem!
     @IBOutlet weak var previousBtn: UIBarButtonItem!
     
     @IBOutlet weak var nextBtn: UIBarButtonItem!
@@ -24,7 +25,7 @@ class galleryViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.galleryNavItem.title = "\(imageIndex) out of \(images.count - 1)"
+        self.navItem.title = "\(imageIndex) out of \(images.count - 1)"
         self.galleryImageView.isUserInteractionEnabled = true
         
         //Setup scrollview
@@ -68,8 +69,8 @@ class galleryViewController: UIViewController, UIScrollViewDelegate {
                     }
                     
                     if imageIndex >= 0 {
-                        galleryImageView.image = images[imageIndex]
-                        self.galleryNavItem.title = "\(imageIndex) out of \(images.count - 1)"
+                        self.galleryImageView.image = self.images[self.imageIndex]
+                        self.navItem.title = "\(imageIndex) out of \(images.count - 1)"
                     }
                     
                     break
@@ -81,8 +82,8 @@ class galleryViewController: UIViewController, UIScrollViewDelegate {
                     }
                     
                     if imageIndex < images.count {
-                        galleryImageView.image = images[imageIndex]
-                        self.galleryNavItem.title = "\(imageIndex) out of \(images.count - 1)"
+                        self.galleryImageView.image = self.images[self.imageIndex]                        
+                        self.navItem.title = "\(imageIndex) out of \(images.count - 1)"
                     }
                     
                     break
@@ -93,6 +94,18 @@ class galleryViewController: UIViewController, UIScrollViewDelegate {
         
     }
     
+    @IBAction func galleryImageViewTap(_ sender: Any) {
+        if galleryScrollView.backgroundColor == UIColor.black {
+            UIView.animate(withDuration: 0.5) {
+                self.galleryScrollView.backgroundColor = UIColor.init(colorLiteralRed: 90/255, green: 90/255, blue: 90/255, alpha: 1.0)
+            }
+        }
+        else {
+            UIView.animate(withDuration: 0.5) {
+                self.galleryScrollView.backgroundColor = UIColor.black
+            }
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

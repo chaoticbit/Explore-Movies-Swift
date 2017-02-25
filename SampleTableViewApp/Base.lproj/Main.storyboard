@@ -548,7 +548,7 @@
                                                 </view>
                                                 <connections>
                                                     <outlet property="backdropImageView" destination="WZm-G5-izd" id="WCz-lp-1XR"/>
-                                                    <segue destination="Q6U-cT-UBG" kind="presentation" identifier="toGallery" modalPresentationStyle="overFullScreen" id="e6L-x1-8je"/>
+                                                    <segue destination="RTB-r4-jee" kind="presentation" identifier="toGallery" id="DW9-I5-wsq"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
@@ -683,6 +683,10 @@
                                     <imageView multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pAX-zU-gNr">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="TFu-8w-WP6" appends="YES" id="4mQ-hi-Fw4"/>
+                                        </connections>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.3529411764705882" green="0.3529411764705882" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
@@ -692,18 +696,29 @@
                     </view>
                     <navigationItem key="navigationItem" id="gWL-Dx-IyR">
                         <barButtonItem key="backBarButtonItem" title="Back" id="AwE-e2-AHR"/>
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="asy-9o-dXc">
+                            <connections>
+                                <segue destination="GNG-hX-Od9" kind="unwind" unwindAction="backFromModalWithSegue:" id="0FP-1E-aGg"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="galleryImageView" destination="pAX-zU-gNr" id="Dxv-8u-IwN"/>
                         <outlet property="galleryNavItem" destination="WwL-KR-byO" id="jUN-St-PB6"/>
                         <outlet property="galleryScrollView" destination="cWA-Ep-clM" id="rlV-vK-8fh"/>
+                        <outlet property="navItem" destination="gWL-Dx-IyR" id="rmQ-bU-zuM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="65m-Ry-1ps" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="GNG-hX-Od9" userLabel="Exit" sceneMemberID="exit"/>
+                <tapGestureRecognizer id="TFu-8w-WP6">
+                    <connections>
+                        <action selector="galleryImageViewTap:" destination="Q6U-cT-UBG" id="gN9-QW-KfS"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="3959.1999999999998" y="-265.81709145427288"/>
+            <point key="canvasLocation" x="4898.3999999999996" y="-265.81709145427288"/>
         </scene>
         <!--Custom Web View Controller-->
         <scene sceneID="QKZ-DW-3im">
@@ -995,6 +1010,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="grQ-m6-iiq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2164" y="246.9265367316342"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="QEv-kB-xPY">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="RTB-r4-jee" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="y7V-Qh-WQD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Q6U-cT-UBG" kind="relationship" relationship="rootViewController" id="kEf-hw-q1U"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OUY-5z-PjP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3959.1999999999998" y="-265.81709145427288"/>
         </scene>
     </scenes>
     <resources>
