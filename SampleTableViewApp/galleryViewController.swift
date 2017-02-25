@@ -69,7 +69,9 @@ class galleryViewController: UIViewController, UIScrollViewDelegate {
                     }
                     
                     if imageIndex >= 0 {
-                        self.galleryImageView.image = self.images[self.imageIndex]
+                        UIView.animate(withDuration: 0.5, animations: {
+                            self.galleryImageView.image = self.images[self.imageIndex]                            
+                        })
                         self.navItem.title = "\(imageIndex) out of \(images.count - 1)"
                     }
                     

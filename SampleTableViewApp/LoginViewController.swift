@@ -14,8 +14,20 @@ class LoginViewController: UIViewController {
     var dict : [String : AnyObject]!
     var env: String = "TEST"
     
+    @IBOutlet weak var loginPopupView: UIView!
+    
+    @IBOutlet weak var loginEmailTextField: UITextField!
+    
+    @IBOutlet weak var loginPasswordTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        loginPopupView.isHidden = true
+        
+        loginEmailTextField.setBottomBorder()
+        loginPasswordTextField.setBottomBorder()
+        
         FBSDKSettings.setAppID("267823996974961")
         // Do any additional setup after loading the view.
     }
@@ -23,6 +35,22 @@ class LoginViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    @IBAction func showLoginViewPopup(_ sender: Any) {
+        UIView.animate(withDuration: 0.5) {
+            self.view.backgroundColor = UIColor.init(colorLiteralRed: 21/255, green: 21/255, blue: 21/255, alpha: 0.5)
+            self.loginPopupView.isHidden = false
+        }
+    }
+    
+    @IBAction func exitLoginPopupView(_ sender: Any) {
+        UIView.animate(withDuration: 0.5) {
+            self.loginPopupView.isHidden = true
+            self.view.backgroundColor = UIColor.white
+        }
+    }
+    
+    @IBAction func loginBtnPressed(_ sender: Any) {
     }
     
     
@@ -57,5 +85,18 @@ class LoginViewController: UIViewController {
                 }
             })
         }
+    }
+}
+
+extension UITextField {
+    func setBottomBorder() {
+        self.borderStyle = .none
+        self.layer.backgroundColor = UIColor.white.cgColor
+        
+        self.layer.masksToBounds = false
+        self.layer.shadowColor = UIColor.gray.cgColor
+        self.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+        self.layer.shadowOpacity = 1.0
+        self.layer.shadowRadius = 0.0
     }
 }
