@@ -12,6 +12,7 @@ import FBSDKLoginKit
 class LoginViewController: UIViewController {
 
     var dict : [String : AnyObject]!
+    var env: String = "TEST"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,17 +27,22 @@ class LoginViewController: UIViewController {
     
     
     @IBAction func FBLoginPressed(_ sender: Any) {
-        let fbLoginManager: FBSDKLoginManager = FBSDKLoginManager()
-        fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) in
-            if error == nil {
-                let fbLoginResult: FBSDKLoginManagerLoginResult = result!
-                if fbLoginResult.grantedPermissions != nil {
-                    if fbLoginResult.grantedPermissions.contains("email") {
-                        self.getFBUserData()
-                        fbLoginManager.logOut()
+        if env == "PROD" {
+            let fbLoginManager: FBSDKLoginManager = FBSDKLoginManager()
+            fbLoginManager.logIn(withReadPermissions: ["email"], from: self) { (result, error) in
+                if error == nil {
+                    let fbLoginResult: FBSDKLoginManagerLoginResult = result!
+                    if fbLoginResult.grantedPermissions != nil {
+                        if fbLoginResult.grantedPermissions.contains("email") {
+                            self.getFBUserData()
+                            fbLoginManager.logOut()
+                        }
                     }
                 }
             }
+        }
+        else if env == "TEST" {
+            self.performSegue(withIdentifier: "toTabView", sender: nil)
         }
     }
 
