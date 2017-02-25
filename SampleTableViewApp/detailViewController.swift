@@ -134,7 +134,7 @@ class detailViewController: UIViewController, UIWebViewDelegate, UICollectionVie
                 if results["images"]["backdrops"].count > 0 {
                     for item in results["images"]["backdrops"].arrayValue {
                         let imageUrl: String = item["file_path"].stringValue
-                        let url = URL(string: "https://image.tmdb.org/t/p/original" + imageUrl)
+                        let url = URL(string: "https://image.tmdb.org/t/p/w500" + imageUrl)
                         let data = try? Data(contentsOf: url!)
                         self.arrOfThumnails.append(UIImage(data: data!)!)
                     }
@@ -176,7 +176,9 @@ class detailViewController: UIViewController, UIWebViewDelegate, UICollectionVie
                 else {
                     self.backdropImage.isHidden = true
                     self.movieTrailerWebView.isHidden = false
-                    self.loadYouTube(videoID: self.movieTrailerID)
+                    DispatchQueue.main.async {
+                        self.loadYouTube(videoID: self.movieTrailerID)
+                    }
                 }
                 self.loader.stopAnimating()
                 self.bgImagesCollectionView.reloadData()

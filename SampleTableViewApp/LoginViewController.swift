@@ -48,12 +48,6 @@ class LoginViewController: UIViewController {
                     print(result!)
                     print(self.dict)
                     self.performSegue(withIdentifier: "toTabView", sender: nil)
-                    
-//                    guard let homeVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "homeVC") as? ViewController else {
-//                        print("Could not instantiate view controller with identifier of type GenreMoviesViewController")
-//                        return
-//                    }
-//                    self.navigationController?.pushViewController(homeVC, animated: true)
                 }
             })
         }
