@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import Firebase
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -136,10 +137,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.refreshControl.endRefreshing()
     }
     
+    @IBAction func logOutAction(_ sender: Any) {
+        if FIRAuth.auth()?.currentUser != nil {
+            do {
+                try FIRAuth.auth()?.signOut()
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "loginVC")
+                self.present(vc!, animated: true, completion: nil)
+            }
+            catch let error as NSError {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        var dict : [String : AnyObject]!
         
         let theHeight = view.frame.size.height //grabs the height of your view
         self.myTableView.refreshControl = refreshControl

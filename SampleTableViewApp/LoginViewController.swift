@@ -64,7 +64,7 @@ class LoginViewController: UIViewController {
             if user != nil {
                 self.performSegue(withIdentifier: "toTabView", sender: nil)
             } else {
-                self.animateIn(view: self.loginPopupView)
+                //
             }
         }
         
