@@ -8,6 +8,8 @@ target 'SampleTableViewApp' do
   pod 'FacebookCore'
   pod 'FacebookLogin'
   pod 'FacebookShare'
+  pod 'Firebase/Core'
+  pod 'Firebase/Auth'
   use_frameworks!
 
   # Pods for SampleTableViewApp

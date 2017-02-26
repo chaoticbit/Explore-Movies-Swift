@@ -18,6 +18,9 @@
 		1656FFAF1E509DD2006F2E0B /* movie_projector-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 1656FFAE1E509DD2006F2E0B /* movie_projector-32.png */; };
 		1658B8971E572BF60069B6B7 /* searchPreferenceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1658B8961E572BF60069B6B7 /* searchPreferenceTableViewCell.swift */; };
 		1658B8991E5733F90069B6B7 /* Ok_25.png in Resources */ = {isa = PBXBuildFile; fileRef = 1658B8981E5733F90069B6B7 /* Ok_25.png */; };
+		167032111E629E36003488C9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 167032101E629E36003488C9 /* GoogleService-Info.plist */; };
+		167032121E629E36003488C9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 167032101E629E36003488C9 /* GoogleService-Info.plist */; };
+		167032131E629E36003488C9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 167032101E629E36003488C9 /* GoogleService-Info.plist */; };
 		16958CB41E5DF89D00ABD1A8 /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16958CB31E5DF89D00ABD1A8 /* ErrorViewController.swift */; };
 		169DE89C1E52E5D000729C04 /* tv_show-25.png in Resources */ = {isa = PBXBuildFile; fileRef = 169DE89B1E52E5D000729C04 /* tv_show-25.png */; };
 		169DE89E1E52E93F00729C04 /* tvShowsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169DE89D1E52E93F00729C04 /* tvShowsViewController.swift */; };
@@ -96,6 +99,7 @@
 		1656FFAE1E509DD2006F2E0B /* movie_projector-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "movie_projector-32.png"; path = "../../all_icons_by_Icons8_free/iOS7/PNG/32/Photo_Video/movie_projector-32.png"; sourceTree = "<group>"; };
 		1658B8961E572BF60069B6B7 /* searchPreferenceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = searchPreferenceTableViewCell.swift; sourceTree = "<group>"; };
 		1658B8981E5733F90069B6B7 /* Ok_25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Ok_25.png; path = "../../../Downloads/Ok 25, 50 px/Ok_25.png"; sourceTree = "<group>"; };
+		167032101E629E36003488C9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		16958CB31E5DF89D00ABD1A8 /* ErrorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorViewController.swift; sourceTree = "<group>"; };
 		169DE89B1E52E5D000729C04 /* tv_show-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tv_show-25.png"; path = "../../all_icons_by_Icons8_free/iOS7/PNG/25/Media_Controls/tv_show-25.png"; sourceTree = "<group>"; };
 		169DE89D1E52E93F00729C04 /* tvShowsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tvShowsViewController.swift; sourceTree = "<group>"; };
@@ -234,6 +238,7 @@
 				16B9E4C61E4CCE6E00C934E5 /* customTableViewCell.swift */,
 				16B9E49F1E4CCBAB00C934E5 /* Assets.xcassets */,
 				16B9E4A11E4CCBAB00C934E5 /* LaunchScreen.storyboard */,
+				167032101E629E36003488C9 /* GoogleService-Info.plist */,
 				16B9E4A41E4CCBAB00C934E5 /* Info.plist */,
 				16DDF3D61E4F00FC00AC33B0 /* customWebViewController.swift */,
 				169DE8A31E53096800729C04 /* SwiftyJSON.swift */,
@@ -455,6 +460,7 @@
 				16C0EE0A1E4F83F0000C36D0 /* SanFranciscoText-MediumItalic.otf in Resources */,
 				16C0EE041E4F83F0000C36D0 /* SanFranciscoText-BoldItalic.otf in Resources */,
 				16C0EE0B1E4F83F0000C36D0 /* SanFranciscoText-Regular.otf in Resources */,
+				167032111E629E36003488C9 /* GoogleService-Info.plist in Resources */,
 				16C0EE081E4F83F0000C36D0 /* SanFranciscoText-LightItalic.otf in Resources */,
 				16B9E49E1E4CCBAB00C934E5 /* Main.storyboard in Resources */,
 				16C0EE131E4F869F000C36D0 /* thumbnails-25.png in Resources */,
@@ -477,6 +483,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				167032121E629E36003488C9 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -484,6 +491,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				167032131E629E36003488C9 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
