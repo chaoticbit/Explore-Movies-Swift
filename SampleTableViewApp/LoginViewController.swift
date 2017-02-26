@@ -8,6 +8,7 @@
 
 import UIKit
 import FBSDKLoginKit
+import Firebase
 
 class LoginViewController: UIViewController {
 
@@ -24,11 +25,18 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var registerEmailTextField: UITextField!
     @IBOutlet weak var registerPasswordTextField: UITextField!
     
+    @IBOutlet weak var registerBtn: UIButton!
+    @IBOutlet weak var loginBtn: UIButton!
+    
+    @IBOutlet weak var registerActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var loginActivityIndicator: UIActivityIndicatorView!
     
     var effect: UIVisualEffect!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        checkIfLoggedIn()
+        
         FBSDKSettings.setAppID("267823996974961")
         
         effect = visualEffectView.effect
@@ -49,6 +57,17 @@ class LoginViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func checkIfLoggedIn() {
+        FIRAuth.auth()?.addStateDidChangeListener { auth, user in
+            if user != nil {
+                self.performSegue(withIdentifier: "toTabView", sender: nil)
+            } else {
+                self.animateIn(view: self.loginPopupView)
+            }
+        }
+        
     }
     
     func animateIn(view: UIView) {
@@ -83,6 +102,8 @@ class LoginViewController: UIViewController {
     @IBAction func showLoginViewPopup(_ sender: Any) {
         animateIn(view: loginPopupView)
         self.loginEmailTextField.becomeFirstResponder()
+        self.loginEmailTextField.text = nil
+        self.loginPasswordTextField.text = nil
     }
     
     @IBAction func exitLoginPopupView(_ sender: Any) {
@@ -94,15 +115,13 @@ class LoginViewController: UIViewController {
         }
         animateOut(view: loginPopupView)
     }
-    
-    
-    @IBAction func loginBtnPressed(_ sender: Any) {
-        
-    }
+            
     
     @IBAction func showRegisterPopupView(_ sender: Any) {
         animateIn(view: registerPopupView)
         self.registerEmailTextField.becomeFirstResponder()
+        self.registerEmailTextField.text = nil
+        self.registerPasswordTextField.text = nil
     }
     
     @IBAction func exitRegisterPopupView(_ sender: Any) {
@@ -115,7 +134,65 @@ class LoginViewController: UIViewController {
         animateOut(view: registerPopupView)
     }
     
-    @IBAction func registerBtnPressed(_ sender: Any) {
+    @IBAction func createAccountAction(_ sender: Any) {
+        if registerEmailTextField.text == "" {
+            let alertController = UIAlertController(title: "Error", message: "Please enter your email and password", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alertController.addAction(defaultAction)
+            present(alertController, animated: true, completion: nil)
+        }
+        else {
+            self.registerBtn.isHidden = true
+            self.registerActivityIndicator.isHidden = false
+            self.registerActivityIndicator.startAnimating()
+            FIRAuth.auth()?.createUser(withEmail: registerEmailTextField.text!, password: registerPasswordTextField.text!) { (user, error) in
+                
+                if error == nil {
+                    self.registerActivityIndicator.stopAnimating()
+                    print("Successfully signed up")
+                    self.performSegue(withIdentifier: "toTabView", sender: nil)
+                }
+                else {
+                    let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
+                    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    alertController.addAction(defaultAction)
+                    self.present(alertController, animated: true, completion: nil)
+                    self.registerActivityIndicator.stopAnimating()
+                    self.registerBtn.isHidden = false
+                }
+            
+            }
+        }
+    }
+    
+    @IBAction func loginAction(_ sender: Any) {
+        if self.loginEmailTextField.text == "" || self.loginPasswordTextField.text == "" {
+            let alertContoller = UIAlertController(title: "Error", message: "Please enter email and password", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alertContoller.addAction(defaultAction)
+            self.present(alertContoller, animated: true, completion: nil)
+        }
+        else {
+            self.loginBtn.isHidden = true
+            self.loginActivityIndicator.isHidden = false
+            self.loginActivityIndicator.startAnimating()
+            FIRAuth.auth()?.signIn(withEmail: self.loginEmailTextField.text!, password: self.loginPasswordTextField.text!) { (user, error) in
+                
+                if error == nil {
+                    self.loginActivityIndicator.stopAnimating()
+                    print("Successfully logged in")
+                    self.performSegue(withIdentifier: "toTabView", sender: nil)
+                }
+                else {
+                    let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
+                    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    alertController.addAction(defaultAction)
+                    self.present(alertController, animated: true, completion: nil)
+                    self.loginActivityIndicator.stopAnimating()
+                    self.loginBtn.isHidden = false
+                }
+            }
+        }
     }
     
     
