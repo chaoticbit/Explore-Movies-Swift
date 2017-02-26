@@ -15,7 +15,6 @@
 		1653C6B51E5F4672005457CB /* galleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1653C6B41E5F4672005457CB /* galleryViewController.swift */; };
 		1656FFA91E506887006F2E0B /* genreMoviesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1656FFA81E506887006F2E0B /* genreMoviesViewCell.swift */; };
 		1656FFAB1E5068B5006F2E0B /* genreDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1656FFAA1E5068B5006F2E0B /* genreDetailViewController.swift */; };
-		1656FFAF1E509DD2006F2E0B /* movie_projector-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 1656FFAE1E509DD2006F2E0B /* movie_projector-32.png */; };
 		1658B8971E572BF60069B6B7 /* searchPreferenceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1658B8961E572BF60069B6B7 /* searchPreferenceTableViewCell.swift */; };
 		1658B8991E5733F90069B6B7 /* Ok_25.png in Resources */ = {isa = PBXBuildFile; fileRef = 1658B8981E5733F90069B6B7 /* Ok_25.png */; };
 		167032111E629E36003488C9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 167032101E629E36003488C9 /* GoogleService-Info.plist */; };
@@ -96,7 +95,6 @@
 		1653C6B41E5F4672005457CB /* galleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = galleryViewController.swift; sourceTree = "<group>"; };
 		1656FFA81E506887006F2E0B /* genreMoviesViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = genreMoviesViewCell.swift; sourceTree = "<group>"; };
 		1656FFAA1E5068B5006F2E0B /* genreDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = genreDetailViewController.swift; sourceTree = "<group>"; };
-		1656FFAE1E509DD2006F2E0B /* movie_projector-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "movie_projector-32.png"; path = "../../all_icons_by_Icons8_free/iOS7/PNG/32/Photo_Video/movie_projector-32.png"; sourceTree = "<group>"; };
 		1658B8961E572BF60069B6B7 /* searchPreferenceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = searchPreferenceTableViewCell.swift; sourceTree = "<group>"; };
 		1658B8981E5733F90069B6B7 /* Ok_25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Ok_25.png; path = "../../../Downloads/Ok 25, 50 px/Ok_25.png"; sourceTree = "<group>"; };
 		167032101E629E36003488C9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -270,7 +268,6 @@
 				16C0EE101E4F85EF000C36D0 /* movie-25.png */,
 				169DE89B1E52E5D000729C04 /* tv_show-25.png */,
 				16C0EE121E4F869F000C36D0 /* thumbnails-25.png */,
-				1656FFAE1E509DD2006F2E0B /* movie_projector-32.png */,
 				16D6E64D1E50AB5F00C11C04 /* blank_poster_image.jpg */,
 				16C0EDE51E4F83F0000C36D0 /* SanFranciscoDisplay-Black.otf */,
 				1658B8981E5733F90069B6B7 /* Ok_25.png */,
@@ -471,7 +468,6 @@
 				16C0EE061E4F83F0000C36D0 /* SanFranciscoText-HeavyItalic.otf in Resources */,
 				16C0EE0E1E4F83F0000C36D0 /* SanFranciscoText-SemiboldItalic.otf in Resources */,
 				169DE89C1E52E5D000729C04 /* tv_show-25.png in Resources */,
-				1656FFAF1E509DD2006F2E0B /* movie_projector-32.png in Resources */,
 				16C0EDFB1E4F83F0000C36D0 /* SanFranciscoDisplay-Bold.otf in Resources */,
 				16C0EE0D1E4F83F0000C36D0 /* SanFranciscoText-Semibold.otf in Resources */,
 				16C0EE021E4F83F0000C36D0 /* SanFranciscoDisplay-Ultralight.otf in Resources */,

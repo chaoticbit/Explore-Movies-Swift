@@ -15,20 +15,34 @@ class LoginViewController: UIViewController {
     var env: String = "TEST"
     
     @IBOutlet weak var loginPopupView: UIView!
+    @IBOutlet var registerPopupView: UIView!
+    @IBOutlet weak var visualEffectView: UIVisualEffectView!
     
     @IBOutlet weak var loginEmailTextField: UITextField!
-    
     @IBOutlet weak var loginPasswordTextField: UITextField!
+    
+    @IBOutlet weak var registerEmailTextField: UITextField!
+    @IBOutlet weak var registerPasswordTextField: UITextField!
+    
+    
+    var effect: UIVisualEffect!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        FBSDKSettings.setAppID("267823996974961")
         
-        loginPopupView.isHidden = true
+        effect = visualEffectView.effect
+        visualEffectView.effect = nil
+        visualEffectView.isHidden = true        
+        
+        loginPopupView.layer.cornerRadius = 5
+        registerPopupView.layer.cornerRadius = 5
         
         loginEmailTextField.setBottomBorder()
         loginPasswordTextField.setBottomBorder()
         
-        FBSDKSettings.setAppID("267823996974961")
+        registerEmailTextField.setBottomBorder()
+        registerPasswordTextField.setBottomBorder()
         // Do any additional setup after loading the view.
     }
 
@@ -36,21 +50,72 @@ class LoginViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    @IBAction func showLoginViewPopup(_ sender: Any) {
-        UIView.animate(withDuration: 0.5) {
-            self.view.backgroundColor = UIColor.init(colorLiteralRed: 21/255, green: 21/255, blue: 21/255, alpha: 0.5)
-            self.loginPopupView.isHidden = false
+    
+    func animateIn(view: UIView) {
+        visualEffectView.isHidden = false
+        self.view.addSubview(view)
+//        view.center = self.view.center        
+        view.center = CGPoint(x: 188, y: 250)
+        
+        view.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+        view.alpha = 0
+        
+        UIView.animate(withDuration: 0.4) {
+            self.visualEffectView.effect = self.effect
+            view.alpha = 1
+            view.transform = CGAffineTransform.identity
         }
+    }
+    
+    func animateOut(view: UIView) {
+        UIView.animate(withDuration: 0.3, animations: {
+            view.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+            view.alpha = 0
+            
+            self.visualEffectView.effect = nil
+        }) { (success: Bool) in
+            view.removeFromSuperview()
+            self.visualEffectView.isHidden = true
+        }
+    }
+    
+    
+    @IBAction func showLoginViewPopup(_ sender: Any) {
+        animateIn(view: loginPopupView)
+        self.loginEmailTextField.becomeFirstResponder()
     }
     
     @IBAction func exitLoginPopupView(_ sender: Any) {
-        UIView.animate(withDuration: 0.5) {
-            self.loginPopupView.isHidden = true
-            self.view.backgroundColor = UIColor.white
+        if self.loginEmailTextField.isFirstResponder {
+            self.loginEmailTextField.resignFirstResponder()
         }
+        else {
+            self.loginPasswordTextField.resignFirstResponder()
+        }
+        animateOut(view: loginPopupView)
     }
     
+    
     @IBAction func loginBtnPressed(_ sender: Any) {
+        
+    }
+    
+    @IBAction func showRegisterPopupView(_ sender: Any) {
+        animateIn(view: registerPopupView)
+        self.registerEmailTextField.becomeFirstResponder()
+    }
+    
+    @IBAction func exitRegisterPopupView(_ sender: Any) {
+        if self.registerEmailTextField.isFirstResponder {
+           self.registerEmailTextField.resignFirstResponder()
+        }
+        else {
+            self.registerPasswordTextField.resignFirstResponder()
+        }
+        animateOut(view: registerPopupView)
+    }
+    
+    @IBAction func registerBtnPressed(_ sender: Any) {
     }
     
     
@@ -94,8 +159,8 @@ extension UITextField {
         self.layer.backgroundColor = UIColor.white.cgColor
         
         self.layer.masksToBounds = false
-        self.layer.shadowColor = UIColor.gray.cgColor
-        self.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+        self.layer.shadowColor = UIColor.lightGray.cgColor
+        self.layer.shadowOffset = CGSize(width: 0.0, height: 1)
         self.layer.shadowOpacity = 1.0
         self.layer.shadowRadius = 0.0
     }

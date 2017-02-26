@@ -81,5 +81,53 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SampleTableViewApp/LoginViewController.swift"
+            timestampString = "509797664.667014"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "animateIn(view:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SampleTableViewApp.LoginViewController.animateIn () -&gt; ()"
+                  moduleName = "SampleTableViewApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/atharvadandekar/Documents/projects/SampleTableViewApp/SampleTableViewApp/LoginViewController.swift"
+                  timestampString = "509793585.824912"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "59"
+                  endingLineNumber = "59"
+                  offsetFromSymbolStart = "1726">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SampleTableViewApp.LoginViewController.(animateIn () -&gt; ()).(closure #1)"
+                  moduleName = "SampleTableViewApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/atharvadandekar/Documents/projects/SampleTableViewApp/SampleTableViewApp/LoginViewController.swift"
+                  timestampString = "509793585.830938"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "59"
+                  endingLineNumber = "59"
+                  offsetFromSymbolStart = "649">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
