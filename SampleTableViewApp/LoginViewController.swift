@@ -10,7 +10,7 @@ import UIKit
 import FBSDKLoginKit
 import Firebase
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
 
     var dict : [String : AnyObject]!
     var env: String = "TEST"
@@ -57,6 +57,30 @@ class LoginViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == self.loginPasswordTextField {
+            if self.loginPasswordTextField.returnKeyType == UIReturnKeyType.go {
+                login()
+            }
+        }
+        else if textField == self.loginEmailTextField {
+            if self.loginEmailTextField.returnKeyType == UIReturnKeyType.next {
+                self.loginPasswordTextField.becomeFirstResponder()
+            }
+        }
+        else if textField == self.registerPasswordTextField {
+            if self.registerPasswordTextField.returnKeyType == UIReturnKeyType.go {
+                createAccount()
+            }
+        }
+        else if textField == self.registerEmailTextField {
+            if self.registerEmailTextField.returnKeyType == UIReturnKeyType.next {
+                self.registerPasswordTextField.becomeFirstResponder()
+            }
+        }
+        return true
     }
     
     func checkIfLoggedIn() {
@@ -135,37 +159,15 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func createAccountAction(_ sender: Any) {
-        if registerEmailTextField.text == "" {
-            let alertController = UIAlertController(title: "Error", message: "Please enter your email and password", preferredStyle: .alert)
-            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-            alertController.addAction(defaultAction)
-            present(alertController, animated: true, completion: nil)
-        }
-        else {
-            self.registerBtn.isHidden = true
-            self.registerActivityIndicator.isHidden = false
-            self.registerActivityIndicator.startAnimating()
-            FIRAuth.auth()?.createUser(withEmail: registerEmailTextField.text!, password: registerPasswordTextField.text!) { (user, error) in
-                
-                if error == nil {
-                    self.registerActivityIndicator.stopAnimating()
-                    print("Successfully signed up")
-                    self.performSegue(withIdentifier: "toTabView", sender: nil)
-                }
-                else {
-                    let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
-                    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                    alertController.addAction(defaultAction)
-                    self.present(alertController, animated: true, completion: nil)
-                    self.registerActivityIndicator.stopAnimating()
-                    self.registerBtn.isHidden = false
-                }
-            
-            }
-        }
+        createAccount()
     }
     
+    
     @IBAction func loginAction(_ sender: Any) {
+        login()
+    }
+    
+    func login() {
         if self.loginEmailTextField.text == "" || self.loginPasswordTextField.text == "" {
             let alertContoller = UIAlertController(title: "Error", message: "Please enter email and password", preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
@@ -191,6 +193,37 @@ class LoginViewController: UIViewController {
                     self.loginActivityIndicator.stopAnimating()
                     self.loginBtn.isHidden = false
                 }
+            }
+        }
+    }
+    
+    func createAccount() {
+        if registerEmailTextField.text == "" {
+            let alertController = UIAlertController(title: "Error", message: "Please enter your email and password", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alertController.addAction(defaultAction)
+            present(alertController, animated: true, completion: nil)
+        }
+        else {
+            self.registerBtn.isHidden = true
+            self.registerActivityIndicator.isHidden = false
+            self.registerActivityIndicator.startAnimating()
+            FIRAuth.auth()?.createUser(withEmail: registerEmailTextField.text!, password: registerPasswordTextField.text!) { (user, error) in
+                
+                if error == nil {
+                    self.registerActivityIndicator.stopAnimating()
+                    print("Successfully signed up")
+                    self.performSegue(withIdentifier: "toTabView", sender: nil)
+                }
+                else {
+                    let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
+                    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    alertController.addAction(defaultAction)
+                    self.present(alertController, animated: true, completion: nil)
+                    self.registerActivityIndicator.stopAnimating()
+                    self.registerBtn.isHidden = false
+                }
+                
             }
         }
     }
@@ -232,13 +265,13 @@ class LoginViewController: UIViewController {
 
 extension UITextField {
     func setBottomBorder() {
-        self.borderStyle = .none
-        self.layer.backgroundColor = UIColor.white.cgColor
         
-        self.layer.masksToBounds = false
-        self.layer.shadowColor = UIColor.lightGray.cgColor
-        self.layer.shadowOffset = CGSize(width: 0.0, height: 1)
-        self.layer.shadowOpacity = 1.0
-        self.layer.shadowRadius = 0.0
+        self.borderStyle = .none
+        self.layer.backgroundColor = UIColor.clear.cgColor
+        
+        let bottomLine = CALayer()
+        bottomLine.frame = CGRect(x: 0.0, y: self.frame.height - 1, width: self.frame.width, height: 1.0)
+        bottomLine.backgroundColor = UIColor.lightGray.cgColor
+        self.layer.addSublayer(bottomLine)
     }
 }

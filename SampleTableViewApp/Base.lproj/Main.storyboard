@@ -763,7 +763,7 @@
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="664"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="fLO-g8-clR">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fLO-g8-clR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -891,18 +891,24 @@
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email " minimumFontSize="20" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="K8q-Ed-oOd">
                             <rect key="frame" x="16" y="38" width="288" height="35"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <fontDescription key="fontDescription" name="SanFranciscoDisplay-Regular" family="San Francisco Display" pointSize="17"/>
                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" keyboardAppearance="light" returnKeyType="next"/>
+                            <connections>
+                                <outlet property="delegate" destination="1cn-NL-Kh4" id="xmI-xr-VHx"/>
+                            </connections>
                         </textField>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="20" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="0hq-E8-Ebl">
                             <rect key="frame" x="16" y="86" width="288" height="35"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <fontDescription key="fontDescription" name="SanFranciscoDisplay-Regular" family="San Francisco Display" pointSize="17"/>
                             <textInputTraits key="textInputTraits" keyboardAppearance="light" returnKeyType="go" secureTextEntry="YES"/>
+                            <connections>
+                                <outlet property="delegate" destination="1cn-NL-Kh4" id="juC-bo-btV"/>
+                            </connections>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E9T-xI-rbV">
                             <rect key="frame" x="102" y="126" width="108" height="38"/>
@@ -928,7 +934,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </activityIndicatorView>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
                 <view tag="1" contentMode="scaleToFill" id="t3m-Ad-nKv">
                     <rect key="frame" x="0.0" y="0.0" width="319" height="173"/>
@@ -941,6 +947,9 @@
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <fontDescription key="fontDescription" name="SanFranciscoDisplay-Regular" family="San Francisco Display" pointSize="17"/>
                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" keyboardAppearance="light" returnKeyType="next"/>
+                            <connections>
+                                <outlet property="delegate" destination="1cn-NL-Kh4" id="I9N-82-njd"/>
+                            </connections>
                         </textField>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="20" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="1Ca-ro-F24">
                             <rect key="frame" x="16" y="83" width="291" height="35"/>
@@ -949,6 +958,9 @@
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <fontDescription key="fontDescription" name="SanFranciscoDisplay-Regular" family="San Francisco Display" pointSize="17"/>
                             <textInputTraits key="textInputTraits" keyboardAppearance="light" returnKeyType="go" secureTextEntry="YES"/>
+                            <connections>
+                                <outlet property="delegate" destination="1cn-NL-Kh4" id="UTj-Rj-ADX"/>
+                            </connections>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sKO-8B-0JB">
                             <rect key="frame" x="12" y="6" width="57" height="30"/>
@@ -974,7 +986,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </activityIndicatorView>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="1" alpha="0.85476090604026844" colorSpace="calibratedWhite"/>
                 </view>
             </objects>
             <point key="canvasLocation" x="-1282.4000000000001" y="688.60569715142435"/>
@@ -1009,7 +1021,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="666"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="PIv-lV-PUv">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="PIv-lV-PUv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1029,7 +1041,7 @@
                     <tabBarItem key="tabBarItem" systemItem="search" id="P2B-Y0-QIN"/>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="f4M-dH-7ug">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="f4M-dH-7ug">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1135,7 +1147,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="h7F-Ap-TgP" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="TV shows" image="tv_show-25.png" selectedImage="tv_show-25.png" id="BFt-SP-hVa"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="E0g-9z-mRf">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="E0g-9z-mRf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1153,7 +1165,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="A3y-2q-BWr" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="yhL-yH-8cO">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yhL-yH-8cO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1171,7 +1183,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="RTB-r4-jee" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="y7V-Qh-WQD">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="y7V-Qh-WQD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

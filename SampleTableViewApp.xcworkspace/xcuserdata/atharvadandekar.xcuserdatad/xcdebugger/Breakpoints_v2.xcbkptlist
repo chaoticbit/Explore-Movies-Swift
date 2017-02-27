@@ -88,11 +88,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SampleTableViewApp/LoginViewController.swift"
-            timestampString = "509824859.818417"
+            timestampString = "509884565.048019"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
             landmarkName = "animateIn(view:)"
             landmarkType = "7">
             <Locations>
