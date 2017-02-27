@@ -34,6 +34,7 @@ class detailViewController: UIViewController, UIWebViewDelegate, UICollectionVie
     var arrOfThumnails: [UIImage] = []
     
     var cast: [String] = []
+    var castId: [Int] = []
     var castProfilePics: [UIImage] = []
     
     func roundIt(value: Float, step: Float) -> Float {
@@ -145,6 +146,7 @@ class detailViewController: UIViewController, UIWebViewDelegate, UICollectionVie
                     for item in results["credits"]["cast"].arrayValue {
                         let name = item["name"].stringValue
                         self.cast.append(name)
+                        self.castId.append(item["id"].intValue)
                         
                         if item["profile_path"] == JSON.null {
                             self.castProfilePics.append(UIImage(named: "default_profile_pic.png")!)
@@ -226,7 +228,7 @@ class detailViewController: UIViewController, UIWebViewDelegate, UICollectionVie
     @IBAction func backFromModal(segue: UIStoryboardSegue) {
         print("and we are back")                
     }
-    
+        
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toWebView" {
             let webVC = segue.destination as? customWebViewController            
@@ -240,6 +242,14 @@ class detailViewController: UIViewController, UIWebViewDelegate, UICollectionVie
             let galleryVC = destinationVC?.topViewController as? galleryViewController
             galleryVC?.images = self.arrOfThumnails
             galleryVC?.imageIndex = (selectedItem?.row)!
+        }
+        
+        if segue.identifier == "toWebViewCastCell" {
+            let item = self.castCollectionView!.indexPathsForSelectedItems
+            let selectedItem = item?.first
+            let castID = self.castId[(selectedItem?.row)!]
+            let webVC = segue.destination as? customWebViewController
+            webVC?.castId = castID
         }
     }
 
