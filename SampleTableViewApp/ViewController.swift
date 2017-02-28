@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import Firebase
+import SDWebImage
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -50,9 +51,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             cell.name?.text = upcomingMovie["title"]
             cell.nationality?.text = upcomingMovie["overview"]
         
-            DispatchQueue.main.async {
-                cell.posterImage?.image = self.arrOfThumnails[indexPath.row]
-            }
+            cell.posterImage.setShowActivityIndicator(true)
+            cell.posterImage.setIndicatorStyle(.gray)
+            cell.posterImage.sd_setImage(with: URL(string: "https://image.tmdb.org/t/p/w185/" + upcomingMovie["thumb"]!), placeholderImage: UIImage(named: "blank_poster_image.jpg")!)
         
             return cell
     }
@@ -102,13 +103,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         let title = item["title"].stringValue
                         let overview = item["overview"].stringValue
                         if item["poster_path"].exists() {
-                            thumb = item["poster_path"].stringValue
-                            let url = URL(string: "https://image.tmdb.org/t/p/w185/" + thumb)
-                            let data = try? Data(contentsOf: url!)
-                            self.arrOfThumnails.append(UIImage(data: data!)!)
-                        }
-                        else {
-                            self.arrOfThumnails.append(UIImage(named: "blank_poster_image.jpg")!)
+                            thumb = item["poster_path"].stringValue                            
                         }
                         let movieId = item["id"].stringValue
                         let obj = ["title": title, "overview": overview, "thumb": thumb, "movieId": movieId]

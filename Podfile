@@ -10,6 +10,7 @@ target 'SampleTableViewApp' do
   pod 'FacebookShare'
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
+  pod 'SDWebImage', '~>3.8'
   use_frameworks!
 
   # Pods for SampleTableViewApp
