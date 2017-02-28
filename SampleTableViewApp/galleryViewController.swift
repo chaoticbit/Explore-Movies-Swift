@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class galleryViewController: UIViewController, UIScrollViewDelegate {
 
@@ -19,14 +20,19 @@ class galleryViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var nextBtn: UIBarButtonItem!
     
     @IBOutlet weak var galleryScrollView: UIScrollView!
-    var images: [UIImage] = []
+    
+    var imageUrls: [String] = []
     var index: Int = 0
     var imageIndex: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navItem.title = "\(imageIndex) out of \(images.count - 1)"
+        self.navItem.title = "\(imageIndex) out of \(imageUrls.count - 1)"
         self.galleryImageView.isUserInteractionEnabled = true
+        
+        self.galleryImageView.setShowActivityIndicator(true)
+        self.galleryImageView.setIndicatorStyle(.gray)
+        self.galleryImageView.sd_setImage(with: URL(string: "https://image.tmdb.org/t/p/w500" + imageUrls[imageIndex]))
         
         //Setup scrollview
         galleryScrollView.delegate = self        
@@ -50,7 +56,6 @@ class galleryViewController: UIViewController, UIScrollViewDelegate {
         swipeLeft.direction = UISwipeGestureRecognizerDirection.left
         
         self.galleryImageView.addGestureRecognizer(swipeLeft)
-        self.galleryImageView.image = self.images[imageIndex]
     }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
@@ -70,22 +75,26 @@ class galleryViewController: UIViewController, UIScrollViewDelegate {
                     
                     if imageIndex >= 0 {
                         UIView.animate(withDuration: 0.5, animations: {
-                            self.galleryImageView.image = self.images[self.imageIndex]                            
+                            self.galleryImageView.setShowActivityIndicator(true)
+                            self.galleryImageView.setIndicatorStyle(.gray)
+                            self.galleryImageView.sd_setImage(with: URL(string: "https://image.tmdb.org/t/p/w500" + self.imageUrls[self.imageIndex]))
                         })
-                        self.navItem.title = "\(imageIndex) out of \(images.count - 1)"
+                        self.navItem.title = "\(imageIndex) out of \(imageUrls.count - 1)"
                     }
                     
                     break
                 case UISwipeGestureRecognizerDirection.left:
                     print("swiped left")
                     
-                    if imageIndex < images.count - 1 {
+                    if imageIndex < imageUrls.count - 1 {
                         imageIndex += 1
                     }
                     
-                    if imageIndex < images.count {
-                        self.galleryImageView.image = self.images[self.imageIndex]                        
-                        self.navItem.title = "\(imageIndex) out of \(images.count - 1)"
+                    if imageIndex < imageUrls.count {
+                        self.galleryImageView.setShowActivityIndicator(true)
+                        self.galleryImageView.setIndicatorStyle(.gray)
+                        self.galleryImageView.sd_setImage(with: URL(string: "https://image.tmdb.org/t/p/w500" + self.imageUrls[self.imageIndex]))
+                        self.navItem.title = "\(imageIndex) out of \(imageUrls.count - 1)"
                     }
                     
                     break

@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import SDWebImage
 
 class detailViewController: UIViewController, UIWebViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
     
@@ -31,11 +32,11 @@ class detailViewController: UIViewController, UIWebViewDelegate, UICollectionVie
     var movieId: Int = -1
     var imdbId: String = ""
     var movieTrailerID: String = ""
-    var arrOfThumnails: [UIImage] = []
+    var arrOfThumnails: [String] = []
     
     var cast: [String] = []
     var castId: [Int] = []
-    var castProfilePics: [UIImage] = []
+    var castProfilePics: [String] = []
     
     func roundIt(value: Float, step: Float) -> Float {
         let inv = 1.0 / step
@@ -135,9 +136,7 @@ class detailViewController: UIViewController, UIWebViewDelegate, UICollectionVie
                 if results["images"]["backdrops"].count > 0 {
                     for item in results["images"]["backdrops"].arrayValue {
                         let imageUrl: String = item["file_path"].stringValue
-                        let url = URL(string: "https://image.tmdb.org/t/p/w500" + imageUrl)
-                        let data = try? Data(contentsOf: url!)
-                        self.arrOfThumnails.append(UIImage(data: data!)!)
+                        self.arrOfThumnails.append(imageUrl)
                     }
                 }
                 
@@ -149,13 +148,11 @@ class detailViewController: UIViewController, UIWebViewDelegate, UICollectionVie
                         self.castId.append(item["id"].intValue)
                         
                         if item["profile_path"] == JSON.null {
-                            self.castProfilePics.append(UIImage(named: "default_profile_pic.png")!)
+                            self.castProfilePics.append("")
                         }
                         else {
                             let imageUrl: String = item["profile_path"].stringValue
-                            let url = URL(string: "https://image.tmdb.org/t/p/w500" + imageUrl)
-                            let data = try? Data(contentsOf: url!)
-                            self.castProfilePics.append(UIImage(data: data!)!)
+                            self.castProfilePics.append(imageUrl)
                         }
                     }
                 }
@@ -212,13 +209,17 @@ class detailViewController: UIViewController, UIWebViewDelegate, UICollectionVie
         
         if collectionView == self.bgImagesCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "bgImgCell", for: indexPath as IndexPath) as! bgImgCollectionViewCell
-            cell.backdropImageView.image = self.arrOfThumnails[indexPath.row]
+            cell.backdropImageView.setShowActivityIndicator(true)
+            cell.backdropImageView.setIndicatorStyle(.gray)
+            cell.backdropImageView.sd_setImage(with: URL(string: "https://image.tmdb.org/t/p/w500" + self.arrOfThumnails[indexPath.row]), placeholderImage: UIImage(named: "blank_poster_image.jpg"))
             return cell
         }
         else if collectionView == self.castCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "castCell", for: indexPath as IndexPath) as! castCollectionViewCell
             cell.castNameLabel.text = self.cast[indexPath.row]
-            cell.castProfilePicImageView.image = self.castProfilePics[indexPath.row]
+            cell.castProfilePicImageView.setShowActivityIndicator(true)
+            cell.castProfilePicImageView.setIndicatorStyle(.gray)
+            cell.castProfilePicImageView.sd_setImage(with: URL(string: "https://image.tmdb.org/t/p/w500" + self.castProfilePics[indexPath.row]), placeholderImage: UIImage(named: "default_profile_pic.png"))
             return cell
         }
         
@@ -240,7 +241,7 @@ class detailViewController: UIViewController, UIWebViewDelegate, UICollectionVie
             let selectedItem = item?.first
             let destinationVC = segue.destination as? UINavigationController
             let galleryVC = destinationVC?.topViewController as? galleryViewController
-            galleryVC?.images = self.arrOfThumnails
+            galleryVC?.imageUrls = self.arrOfThumnails
             galleryVC?.imageIndex = (selectedItem?.row)!
         }
         
