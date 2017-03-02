@@ -433,7 +433,7 @@
         <!--Error View Controller-->
         <scene sceneID="QQq-m7-fLq">
             <objects>
-                <viewController id="9Wk-UY-PUD" customClass="ErrorViewController" customModule="SampleTableViewApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="errorVC" id="9Wk-UY-PUD" customClass="ErrorViewController" customModule="SampleTableViewApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="odS-gk-nHD"/>
                         <viewControllerLayoutGuide type="bottom" id="j5k-fi-uln"/>
@@ -442,33 +442,36 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ohsnap" translatesAutoresizingMaskIntoConstraints="NO" id="yGR-Im-IAg">
-                                <rect key="frame" x="137" y="161" width="100" height="100"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Oh Snap! Something went wrong" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f7M-Vo-zgt">
+                                <rect key="frame" x="94" y="269" width="187" height="43"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Oh Snap! Something went wrong" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f7M-Vo-zgt">
-                                <rect key="frame" x="94" y="269" width="187" height="15"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <fontDescription key="fontDescription" name="SanFranciscoDisplay-Light" family="San Francisco Display" pointSize="13"/>
+                                <fontDescription key="fontDescription" name="SanFranciscoDisplay-Light" family="San Francisco Display" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6vE-DX-RHW">
-                                <rect key="frame" x="156" y="292" width="62" height="15"/>
+                                <rect key="frame" x="151" y="320" width="73" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="SanFranciscoDisplay-Regular" family="San Francisco Display" pointSize="12"/>
+                                <fontDescription key="fontDescription" name="SanFranciscoDisplay-Regular" family="San Francisco Display" pointSize="15"/>
                                 <state key="normal" title="TRY AGAIN"/>
                                 <connections>
                                     <action selector="handleTryAgain:" destination="9Wk-UY-PUD" eventType="touchUpInside" id="jrp-fs-TQX"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ohsnap" translatesAutoresizingMaskIntoConstraints="NO" id="yGR-Im-IAg">
+                                <rect key="frame" x="137" y="161" width="100" height="100"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.94901960784313721" green="0.96078431372549022" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <connections>
+                        <outlet property="errorLabel" destination="f7M-Vo-zgt" id="rVi-xa-BHY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8TZ-A1-Rsl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2522.4000000000001" y="1631.3343328335834"/>
+            <point key="canvasLocation" x="-1282" y="-302"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="p8Y-3W-Vdx">

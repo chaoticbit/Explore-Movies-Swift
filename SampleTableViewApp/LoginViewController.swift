@@ -48,9 +48,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         loginEmailTextField.setBottomBorder()
         loginPasswordTextField.setBottomBorder()
-        
         registerEmailTextField.setBottomBorder()
         registerPasswordTextField.setBottomBorder()
+        
         // Do any additional setup after loading the view.
     }
 
@@ -178,6 +178,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             self.loginBtn.isHidden = true
             self.loginActivityIndicator.isHidden = false
             self.loginActivityIndicator.startAnimating()
+            
             FIRAuth.auth()?.signIn(withEmail: self.loginEmailTextField.text!, password: self.loginPasswordTextField.text!) { (user, error) in
                 
                 if error == nil {

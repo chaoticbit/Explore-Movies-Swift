@@ -90,35 +90,49 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.myTableView.scrollToRow(at: indexPath.first! as IndexPath, at: UITableViewScrollPosition.bottom, animated: true)
     }
     
-    func getUpcomingMovies(page: Int, flag: Int) {                
+    func getUpcomingMovies(page: Int, flag: Int) {                                
         
-        Alamofire.request("https://api.themoviedb.org/3/movie/upcoming?api_key=01082f35da875726ce81a65b79c1d08c&page=\(page)").responseJSON { response in
-            
-            if let jsonValue = response.result.value {
-                self.totalPages = JSON(jsonValue)["total_pages"].intValue
-                let results = JSON(jsonValue)["results"]
-                if results.count > 0 {
-                    for item in results.arrayValue {
-                        var thumb = ""
-                        let title = item["title"].stringValue
-                        let overview = item["overview"].stringValue
-                        if item["poster_path"].exists() {
-                            thumb = item["poster_path"].stringValue                            
-                        }
-                        let movieId = item["id"].stringValue
-                        let obj = ["title": title, "overview": overview, "thumb": thumb, "movieId": movieId]
-                        self.upcomingMovies.append(obj)
-
-                    }
-                    if(flag == 1) {
-                        self.scrollToNewRow()
-                    }
-                    self.currentPage += 1
-                    print("current page after incrementing: ", self.currentPage)
-                    self.loader.stopAnimating()
-                    self.myTableView.reloadData()
-                    self.loadMoreView.isHidden = false
+        let request = Alamofire.request("https://api.themoviedb.org/3/movie/upcoming?api_key=01082f35da875726ce81a65b79c1d08c&page=\(page)")
+        request.validate()
+        request.responseJSON { response in
+            if (response.error != nil) {
+                let error: String = (response.error?.localizedDescription)!
+                print(error)
+                self.loadMoreActivityIndicator.stopAnimating()
+                guard let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "errorVC") as? ErrorViewController else {
+                    print("Could not instantiate view controller with identifier of type GenreMoviesViewController")
                     return
+                }
+                vc.error = error
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            else {
+                if let jsonValue = response.result.value {
+                    self.totalPages = JSON(jsonValue)["total_pages"].intValue
+                    let results = JSON(jsonValue)["results"]
+                    if results.count > 0 {
+                        for item in results.arrayValue {
+                            var thumb = ""
+                            let title = item["title"].stringValue
+                            let overview = item["overview"].stringValue
+                            if item["poster_path"].exists() {
+                                thumb = item["poster_path"].stringValue
+                            }
+                            let movieId = item["id"].stringValue
+                            let obj = ["title": title, "overview": overview, "thumb": thumb, "movieId": movieId]
+                            self.upcomingMovies.append(obj)
+
+                        }
+                        if(flag == 1) {
+                            self.scrollToNewRow()
+                        }
+                        self.currentPage += 1
+                        print("current page after incrementing: ", self.currentPage)
+                        self.loader.stopAnimating()
+                        self.myTableView.reloadData()
+                        self.loadMoreView.isHidden = false
+                        return
+                    }
                 }
             }
         }

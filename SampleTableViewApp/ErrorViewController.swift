@@ -9,11 +9,15 @@
 import UIKit
 
 class ErrorViewController: UIViewController {
-
+    
+    var error: String = ""
    
+    @IBOutlet weak var errorLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        if error != "" {
+            errorLabel.text = error
+        }
         // Do any additional setup after loading the view.
     }
     
