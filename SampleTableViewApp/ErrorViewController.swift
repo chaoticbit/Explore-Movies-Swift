@@ -11,7 +11,8 @@ import UIKit
 class ErrorViewController: UIViewController {
     
     var error: String = ""
-   
+    var controller: String = ""
+    
     @IBOutlet weak var errorLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +23,14 @@ class ErrorViewController: UIViewController {
     }
     
     @IBAction func handleTryAgain(_ sender: Any) {
-        
+        switch controller {
+        case "home":
+            self.performSegue(withIdentifier: "backToHomePage", sender: self)
+            break
+        default:
+            print("default")
+            break
+        }
     }
     
     override func didReceiveMemoryWarning() {

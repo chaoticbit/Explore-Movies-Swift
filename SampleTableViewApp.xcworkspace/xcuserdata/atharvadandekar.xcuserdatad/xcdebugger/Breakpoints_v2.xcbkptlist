@@ -136,12 +136,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SampleTableViewApp/ViewController.swift"
-            timestampString = "510118022.531082"
+            timestampString = "510123535.593911"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
             landmarkName = "getUpcomingMovies(page:flag:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SampleTableViewApp/ViewController.swift"
+            timestampString = "510122543.244327"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
+            landmarkName = "loadMore(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -90,7 +90,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.myTableView.scrollToRow(at: indexPath.first! as IndexPath, at: UITableViewScrollPosition.bottom, animated: true)
     }
     
-    func getUpcomingMovies(page: Int, flag: Int) {                                
+    @IBAction func backToHomePage(segue: UIStoryboardSegue) {
+        self.getUpcomingMovies(page: self.currentPage, flag: 0)
+    }
+    
+    func getUpcomingMovies(page: Int, flag: Int) {
         
         let request = Alamofire.request("https://api.themoviedb.org/3/movie/upcoming?api_key=01082f35da875726ce81a65b79c1d08c&page=\(page)")
         request.validate()
@@ -104,7 +108,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     return
                 }
                 vc.error = error
-                self.navigationController?.pushViewController(vc, animated: true)
+                vc.controller = "home"
+                self.navigationController?.present(vc, animated: true, completion: nil)
             }
             else {
                 if let jsonValue = response.result.value {
