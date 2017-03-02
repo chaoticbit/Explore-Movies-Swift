@@ -465,6 +465,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.94901960784313721" green="0.96078431372549022" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="errorLabel" destination="f7M-Vo-zgt" id="rVi-xa-BHY"/>
                         <segue destination="MPR-j6-HnK" kind="unwind" identifier="backToHomePage" unwindAction="backToHomePageWithSegue:" id="5ki-Un-Xnj"/>

@@ -16,6 +16,7 @@ class ErrorViewController: UIViewController {
     @IBOutlet weak var errorLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+                
         if error != "" {
             errorLabel.text = error
         }
