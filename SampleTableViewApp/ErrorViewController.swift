@@ -28,6 +28,9 @@ class ErrorViewController: UIViewController {
         case "home":
             self.performSegue(withIdentifier: "backToHomePage", sender: self)
             break
+        case "detail_view":
+            self.performSegue(withIdentifier: "backToDetailView", sender: self)
+            break
         default:
             print("default")
             break
